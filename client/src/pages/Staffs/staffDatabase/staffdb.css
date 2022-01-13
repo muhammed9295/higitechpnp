@@ -1,0 +1,33 @@
+.staffdb-container {
+  flex: 5.5;
+  display: flex;
+
+  flex-wrap: wrap;
+  background-color: rgb(243, 243, 243);
+  align-items: center;
+  justify-content: center;
+  height: calc(100vh - 50px);
+  padding: 20px;
+}
+
+.searchbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin: 10px auto;
+}
+
+.upload {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: 35%;
+}
+
+.staffdb-wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}

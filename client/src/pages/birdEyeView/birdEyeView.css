@@ -1,0 +1,33 @@
+.birdEyeView-container{
+    flex: 5.5;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    background-color: rgb(243, 243, 243);
+    align-items: center;
+    justify-content: space-around;
+    height: calc(100vh - 50px);
+    padding: 20px;
+    
+}
+
+.telesales-perfomance{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+}
+
+.operations-performance{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+}
+
+.finance-performance{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+}

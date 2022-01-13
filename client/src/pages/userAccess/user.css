@@ -1,0 +1,27 @@
+.user-container {
+  flex: 5.5;
+  display: flex;
+
+  flex-wrap: wrap;
+  background-color: rgb(243, 243, 243);
+  align-items: center;
+  justify-content: center;
+  height: calc(100vh - 50px);
+  padding: 20px;
+}
+
+.table {
+  background-color: white;
+}
+
+.user-wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.button {
+  margin-bottom: 20px;
+}

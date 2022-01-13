@@ -1,0 +1,14 @@
+.upload-container {
+  width: 100%;
+}
+
+.upload-wrapper {
+  padding: 10px;
+}
+
+.upload-contents {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 20px 0;
+}

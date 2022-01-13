@@ -1,0 +1,21 @@
+{
+  "name": "backend2.0",
+  "version": "1.0.0",
+  "description": "backend to hybrid 2.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "serve": "nodemon index.js"
+  },
+  "author": "muhammedhigitech",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.2",
+    "mysql": "^2.18.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}

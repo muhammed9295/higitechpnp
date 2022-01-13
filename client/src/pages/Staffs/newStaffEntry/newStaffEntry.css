@@ -1,0 +1,49 @@
+.newStaff-container {
+  flex: 5.5;
+  display: flex;
+
+  flex-wrap: wrap;
+  background-color: rgb(243, 243, 243);
+  align-items: center;
+  justify-content: center;
+  height: calc(100vh - 50px);
+  padding: 20px;
+}
+
+.newStaff-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+
+  background-color: white;
+  width: calc(100% - 100px);
+  height: calc(100% - 100px);
+  padding: 0 20px;
+}
+
+.text-field1 {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.text-field2 {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.text-field3 {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.text-field4 {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}

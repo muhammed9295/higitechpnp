@@ -1,0 +1,38 @@
+.mass-container {
+  flex: 5.5;
+  display: flex;
+  flex-wrap: wrap;
+  background-color: rgb(243, 243, 243);
+  align-items: center;
+  justify-content: center;
+  height: calc(100vh - 50px);
+  padding: 20px;
+}
+
+.mass-wrapper {
+  width: 90%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.mass-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 20px 0;
+  padding: 0 20px;
+  color: gray;
+}
+
+.mass-button {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  width: 50%;
+}
+
+.mass-caution {
+  margin-top: 5px;
+  font-size: 14px;
+}
