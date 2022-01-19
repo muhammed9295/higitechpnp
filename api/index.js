@@ -29,7 +29,7 @@ const db = mysql.createConnection({
 });
 
 // create staffs
-app.post("/staffs", (req, res, next) => {
+app.post("/api/staffs", (req, res, next) => {
   const id = req.body.id;
   const name = req.body.name;
   const designation = req.body.designation;
@@ -54,7 +54,7 @@ app.post("/staffs", (req, res, next) => {
 });
 
 // Upload bulk staff information
-app.post("/staffs-upload", (req, res, next) => {
+app.post("/api/staffs-upload", (req, res, next) => {
   let info = !req.body ? [] : req.body;
   db.query(
     "INSERT INTO staffs_information (id, name, designation, department, gender, nationality, project, doj, dob) VALUES ?",
@@ -85,7 +85,7 @@ app.post("/staffs-upload", (req, res, next) => {
 
 // Fetch staffs information
 
-app.get("/staff-details", (req, res, next) => {
+app.get("/api/staff-details", (req, res, next) => {
   db.query("SELECT * FROM staffs_information", (err, result) => {
     if (err) {
       console.log(err);
@@ -96,7 +96,7 @@ app.get("/staff-details", (req, res, next) => {
 });
 
 // Post daily attendance
-app.post("/staff-attendance", (req, res, next) => {
+app.post("/api/staff-attendance", (req, res, next) => {
   //   console.log("req", req);
   //   console.log("reqbody", req.body);
   //   console.log("res", res);
@@ -157,7 +157,7 @@ app.post("/staff-attendance", (req, res, next) => {
 });
 
 // Post project details
-app.post("/add-projects", (req, res, next) => {
+app.post("/api/add-projects", (req, res, next) => {
   const projectnumber = req.body.projectnumber;
   const projectname = req.body.projectname;
   const operationsname = req.body.operationsname;
