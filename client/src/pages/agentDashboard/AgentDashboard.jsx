@@ -6,14 +6,14 @@ import Axios from "axios";
 function AgentDashboard() {
   const [projects, setProjects] = useState([]);
 
-  const axiosInstance = Axios.create({
-    baseURL: process.env.REACT_APP_API_URL,
-  });
+  // const axiosInstance = Axios.create({
+  //   baseURL: process.env.REACT_APP_API_URL,
+  // });
 
   // Fetch project details
   const getProjects = async () => {
     try {
-      const data = await axiosInstance.get("/get-projects");
+      const data = await Axios.get("http://localhost:3001/api/get-projects");
       console.log(data.data);
       setProjects(data.data);
     } catch (e) {

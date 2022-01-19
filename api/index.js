@@ -222,7 +222,7 @@ app.post("/add-projects", (req, res, next) => {
 });
 
 // Get project details
-app.get("/get-projects", (req, res, next) => {
+app.get("/api/get-projects", (req, res, next) => {
   db.query("SELECT * FROM projects_table", (err, result) => {
     if (err) {
       console.log(err);
