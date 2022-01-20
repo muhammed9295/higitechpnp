@@ -46,7 +46,9 @@ function StaffAttendance() {
 
   const staffDetails = async () => {
     try {
-      const data = await Axios.get("http://localhost:3001/api/staff-details");
+      const data = await Axios.get(
+        "http://185.243.76.148:3001/api/staff-details"
+      );
       if (data && data.data) {
         data.data.forEach((element) => {
           if (!element.status) {
@@ -74,7 +76,7 @@ function StaffAttendance() {
 
   // Adding Staff attendence
   const addAttendence = () => {
-    Axios.post("http://localhost:3001/api/attendance", staffList)
+    Axios.post("http://185.243.76.148:3001/api/attendance", staffList)
       .then(() => {
         console.log("success");
         setStatus("Attendance submitted");

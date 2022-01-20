@@ -50,7 +50,7 @@ function UploadEntry() {
   // adding mass staff list to db
   const uploadStaff = () => {
     debugger;
-    Axios.post("http://localhost:3001/api/staffs-upload", staffData)
+    Axios.post("http://185.243.76.148:3001/api/staffs-upload", staffData)
       .then(() => {
         console.log("success");
       })

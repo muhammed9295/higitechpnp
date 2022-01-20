@@ -15,7 +15,7 @@ function NewStaffEntry() {
   const [dob, setDob] = useState("");
 
   const addStaff = () => {
-    Axios.post("http://localhost:3001/api/staffs", {
+    Axios.post("http://185.243.76.148:3001/api/staffs", {
       id: id,
       name: name,
       designation: designation,
