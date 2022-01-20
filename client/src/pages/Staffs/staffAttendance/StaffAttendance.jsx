@@ -17,11 +17,11 @@ import Axios from "axios";
 
 function StaffAttendance() {
   // attendance entry
-  const [id, setId] = useState();
-  const [name, setName] = useState();
-  const axiosInstance = Axios.create({
-    baseURL: process.env.REACT_APP_API_URL,
-  });
+  // const [id, setId] = useState();
+  // const [name, setName] = useState();
+  // const axiosInstance = Axios.create({
+  //   baseURL: process.env.REACT_APP_API_URL,
+  // });
 
   const [staffList, setStaffList] = useState([]);
   const [search, setSearch] = useState("");
@@ -46,8 +46,7 @@ function StaffAttendance() {
 
   const staffDetails = async () => {
     try {
-      debugger;
-      const data = await axiosInstance.get("/staff-details");
+      const data = await Axios.get("http://localhost:3001/api/staff-details");
       if (data && data.data) {
         data.data.forEach((element) => {
           if (!element.status) {
@@ -56,10 +55,12 @@ function StaffAttendance() {
           if (!element.date) {
             element.date = fullDate;
           }
+          if (!element.shift) {
+            element.shift = "morning";
+          }
         });
       }
       setStaffList(data.data);
-      // setStaffList(list);
     } catch (e) {
       console.log(e);
     }
@@ -73,31 +74,14 @@ function StaffAttendance() {
 
   // Adding Staff attendence
   const addAttendence = () => {
-    debugger;
-    axiosInstance
-      .post("/staff-attendance", staffList)
+    Axios.post("http://localhost:3001/api/attendance", staffList)
       .then(() => {
         console.log("success");
-        console.log(name);
+        setStatus("Attendance submitted");
       })
       .catch(function (error) {
         console.log(error);
       });
-    // Axios.post("http://localhost:3001/staff-attendance", {
-    //   id: id,
-    //   name: name,
-    //   designation: designation,
-    //   project: project,
-    //   date: date,
-    //   status: status,
-    // })
-    //   .then(() => {
-    //     console.log("success");
-    //     console.log(name);
-    //   })
-    //   .catch(function (error) {
-    //     console.log(error);
-    //   });
   };
 
   function handleChange(e, index) {
@@ -115,6 +99,7 @@ function StaffAttendance() {
   return (
     <div className='attendance-container'>
       <div className='attendance-wrapper'>
+        <h3>{status}</h3>
         <div className='title'>
           <TextField
             type='text'
@@ -155,6 +140,9 @@ function StaffAttendance() {
                 <TableCell align='centre'>
                   <strong>Status</strong>
                 </TableCell>
+                <TableCell align='centre'>
+                  <strong>Shift</strong>
+                </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -173,9 +161,8 @@ function StaffAttendance() {
                   }
                 })
                 .map((staff, i) => {
-                  const sname = staff.name;
                   return (
-                    <TableRow>
+                    <TableRow key={staff.id}>
                       <TableCell align='centre'>
                         {/* <TextField
                           id='standard-basic'
@@ -239,11 +226,27 @@ function StaffAttendance() {
                           value={staff.status}
                         >
                           <MenuItem value={"present"} selected>
-                            <em>Present</em>
+                            Present
                           </MenuItem>
                           <MenuItem value={"absent"}>Absent</MenuItem>
                           <MenuItem value={"sick"}>Sick</MenuItem>
                           <MenuItem value={"dayoff"}>Dayoff</MenuItem>
+                          <MenuItem value={"leave"}>Leave</MenuItem>
+                          <MenuItem value={"ph"}>PH</MenuItem>
+                          <MenuItem value={"po"}>PO</MenuItem>
+                        </Select>
+                      </TableCell>
+                      <TableCell align='centre'>
+                        <Select
+                          size='small'
+                          onChange={(e) => handleChange(e, i)}
+                          name='shift'
+                          value={staff.shift}
+                        >
+                          <MenuItem value={"morning"} selected>
+                            Morning
+                          </MenuItem>
+                          <MenuItem value={"evening"}>Evening</MenuItem>
                         </Select>
                       </TableCell>
                     </TableRow>

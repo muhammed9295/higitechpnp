@@ -13,23 +13,19 @@ function NewStaffEntry() {
   const [project, setProject] = useState("");
   const [doj, setDoj] = useState("");
   const [dob, setDob] = useState("");
-  const axiosInstance = Axios.create({
-    baseURL: process.env.REACT_APP_API_URL,
-  });
 
   const addStaff = () => {
-    axiosInstance
-      .post("/staffs", {
-        id: id,
-        name: name,
-        designation: designation,
-        department: department,
-        gender: gender,
-        nationality: nationality,
-        project: project,
-        doj: doj,
-        dob: dob,
-      })
+    Axios.post("http://localhost:3001/api/staffs", {
+      id: id,
+      name: name,
+      designation: designation,
+      department: department,
+      gender: gender,
+      nationality: nationality,
+      project: project,
+      doj: doj,
+      dob: dob,
+    })
       .then(() => {
         console.log("success");
       })

@@ -2,7 +2,11 @@ const express = require("express");
 const mysql = require("mysql");
 const cors = require("cors");
 const bodyParser = require("body-parser");
+const dotenv = require("dotenv");
 const req = require("express/lib/request");
+
+// environment instance
+dotenv.config({ path: "./.env" });
 
 const port = 3001;
 const app = express();
@@ -17,15 +21,23 @@ app.use(cors());
 //mysql connection
 
 const db = mysql.createConnection({
-  user: "root",
-  host: "localhost",
-  password: "password",
-  database: "hybrid2",
+  // user: "root",
+  // host: "localhost",
+  // password: "password",
+  // database: "hybrid2",
 
-  // user:'root',
-  // host:'localhost',
-  // password:'password',
-  // database:"higitech_PnP"
+  user: process.env.DATABASE_USER,
+  host: process.env.DATABASE_HOST,
+  password: process.env.DATABASE_PASSWORD,
+  database: process.env.DATABASE,
+});
+
+db.connect(function (err) {
+  if (err) {
+    console.log("Error connecting to DB");
+    return;
+  }
+  console.log("Connection established");
 });
 
 // create staffs
@@ -96,64 +108,46 @@ app.get("/api/staff-details", (req, res, next) => {
 });
 
 // Post daily attendance
-app.post("/api/staff-attendance", (req, res, next) => {
-  //   console.log("req", req);
-  //   console.log("reqbody", req.body);
-  //   console.log("res", res);
-
-  // const id = req.body.id;
-  // const name = req.body.name;
-  // const designation = req.body.designation;
-  // const project = req.body.project;
-  // const date = req.body.date;
-  // const status = req.body.status;
-
-  // console.log(req.body.id);
+app.post("/api/attendance", (req, res, next) => {
   let items = !req.body ? [] : req.body;
   let attendanceData = null;
-  if (items && items.length && items.length > 0) {
-    attendanceData = items[0].date;
-  }
+  // if (items && items.length && items.length > 0) {
+  //   attendanceData = items[0].date;
+  // }
 
-  if (attendanceData) {
-    db.query(
-      "SELECT id FROM hybrid2.staff_attendence where date=?",
-      [attendanceData],
-      (err, result) => {
-        // console.log(err);
-        // console.log("result", result);
-        if (result && result.length == 0) {
-          db.query(
-            "INSERT INTO staff_attendence (id, name, designation, project, date, status) VALUES ?",
-            [
-              items.map((item) => [
-                item.id,
-                item.name,
-                item.designation,
-                item.project,
-                item.date,
-                item.status,
-              ]),
-            ],
-            (err, result) => {
-              //   console.log(err);
-              //   console.log(result);
-              if (err) {
-                console.log(err);
-              } else {
-                res.send("value inserted");
-              }
-            }
-          );
-        }
-        // if (err) {
-        //   console.log(err);
-        // } else {
-        //   res.send("value inserted");
-        // }
+  // if (attendanceData) {
+  // db.query(
+  //   "SELECT id FROM higitech_PnP.staff_attendence where date=?",
+  //   [attendanceData],
+  //   (err, result) => {
+  //     if (result && result.length == 0) {
+  db.query(
+    "INSERT INTO staff_attendence (id, name, designation, project, date, status, shift) VALUES ?",
+    [
+      items.map((item) => [
+        item.id,
+        item.name,
+        item.designation,
+        item.project,
+        item.date,
+        item.status,
+        item.shift,
+      ]),
+    ],
+    (err, result) => {
+      //   console.log(err);
+      //   console.log(result);
+      if (err) {
+        console.log(err);
+      } else {
+        res.send("value inserted");
       }
-    );
-  }
+    }
+  );
+  //     }
+  //   }
+  // );
+  // }
 });
 
 // Post project details

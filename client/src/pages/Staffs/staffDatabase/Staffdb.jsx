@@ -20,10 +20,6 @@ function Staffdb() {
   const [search, setSearch] = useState("");
   const [open, setOpen] = useState(false);
 
-  const axiosInstance = Axios.create({
-    baseURL: process.env.REACT_APP_API_URL,
-  });
-
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -36,7 +32,7 @@ function Staffdb() {
 
   const staffDetails = async () => {
     try {
-      const data = await axiosInstance.get("/staff-details");
+      const data = await Axios.get("http://localhost:3001/api/staff-details");
       console.log(data.data);
       setStaffList(data.data);
     } catch (e) {

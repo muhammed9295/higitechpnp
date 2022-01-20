@@ -17,10 +17,6 @@ import * as XLSX from "xlsx";
 function UploadEntry() {
   const [staffData, setStaffData] = useState([]);
 
-  const axiosInstance = Axios.create({
-    baseURL: process.env.REACT_APP_API_URL,
-  });
-
   const readExcel = (file) => {
     const promise = new Promise((resolve, reject) => {
       const fileReader = new FileReader();
@@ -46,7 +42,7 @@ function UploadEntry() {
     });
 
     promise.then((d) => {
-      console.log(d);
+      // console.log(d);
       setStaffData(d);
     });
   };
@@ -54,8 +50,7 @@ function UploadEntry() {
   // adding mass staff list to db
   const uploadStaff = () => {
     debugger;
-    axiosInstance
-      .post("/staffs-upload", staffData)
+    Axios.post("http://localhost:3001/api/staffs-upload", staffData)
       .then(() => {
         console.log("success");
       })

@@ -1,7 +1,7 @@
 .sidebar {
   flex: 1;
   height: calc(100% - 50px);
-  background-color: #3d4347;
+  /* background-color: #1381ca; */
   position: sticky;
 
   top: 50px;
@@ -10,6 +10,7 @@
 .sidebar-wrapper {
   padding: 10px;
   position: fixed;
+  width: calc(100% - 86%);
   background-color: #3d4347;
   top: 50px;
   bottom: 0;
