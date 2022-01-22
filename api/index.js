@@ -4,6 +4,7 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const dotenv = require("dotenv");
 const req = require("express/lib/request");
+const { sign } = require("jsonwebtoken");
 
 // environment instance
 dotenv.config({ path: "./.env" });
@@ -38,6 +39,46 @@ db.connect(function (err) {
     return;
   }
   console.log("Connection established");
+});
+
+// add new user
+app.post("/api/register", (req, res, next) => {
+  const name = req.body.name;
+  const position = req.body.position;
+  const email = req.body.email;
+  const password = req.body.password;
+  const role = req.body.role;
+  db.query(
+    "INSERT INTO user (name, position, email, password, role) VALUES (?, ?, ?, ?, ?)",
+    [name, position, email, password, role],
+    (err, result) => {
+      console.log(err);
+      res.send(result);
+    }
+  );
+});
+
+// login
+app.post("/api/login", (req, res, next) => {
+  const email = req.body.email;
+  const password = req.body.password;
+
+  db.query(
+    "SELECT * FROM user WHERE email = ? AND password = ?",
+    [email, password],
+    (err, result) => {
+      if (err) {
+        res.send({ err: err });
+      } else {
+        if (result.length > 0) {
+          const accessToken = sign({ email: email }, "importantsecret");
+          res.json(accessToken);
+        } else {
+          res.json({ error: "Wrong email / password" });
+        }
+      }
+    }
+  );
 });
 
 // create staffs

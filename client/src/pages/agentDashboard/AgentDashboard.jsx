@@ -9,7 +9,9 @@ function AgentDashboard() {
   // Fetch project details
   const getProjects = async () => {
     try {
-      const data = await Axios.get("http://localhost:3001/api/get-projects");
+      const data = await Axios.get(
+        "http://185.243.76.148:3001/api/get-projects"
+      );
       console.log(data.data);
       setProjects(data.data);
     } catch (e) {

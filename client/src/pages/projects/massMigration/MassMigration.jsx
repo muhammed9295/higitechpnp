@@ -15,6 +15,7 @@ import {
   Select,
   MenuItem,
 } from "@mui/material";
+import Sidebar from "../../../components/sidebar/Sidebar";
 
 function MassMigration() {
   // dropdown useStates
@@ -38,7 +39,7 @@ function MassMigration() {
   // Getting all staff details
   const staffDetails = async () => {
     try {
-      const data = await Axios.get("http://localhost:3001/staff-details");
+      const data = await Axios.get("http://localhost:3001/api/staff-details");
       setStaffList(data.data);
     } catch (e) {
       console.log(e);
@@ -48,7 +49,7 @@ function MassMigration() {
   // Getting all project details
   const getProjects = async () => {
     try {
-      const data = await Axios.get("http://localhost:3001/get-projects");
+      const data = await Axios.get("http://localhost:3001/api/get-projects");
       console.log(data.data);
       setProjects(data.data);
     } catch (e) {
@@ -62,77 +63,80 @@ function MassMigration() {
   }, []);
 
   return (
-    <div className='mass-container'>
-      <div className='mass-wrapper'>
-        <div className='mass-title'>
-          <h2>Project Mass Migration</h2>
-          <div className='mass-button'>
-            <Button
-              sx={{ backgroundColor: "red", width: "20%", marginTop: "30px" }}
-              variant='contained'
-            >
-              Submit
-            </Button>
-            <p className='mass-caution'>
-              <em>
-                Caution: Once submitted cannot be changed, for more contact your
-                administrator
-              </em>
-            </p>
+    <div className='container'>
+      <Sidebar />
+      <div className='mass-container'>
+        <div className='mass-wrapper'>
+          <div className='mass-title'>
+            <h2>Project Mass Migration</h2>
+            <div className='mass-button'>
+              <Button
+                sx={{ backgroundColor: "red", width: "20%", marginTop: "30px" }}
+                variant='contained'
+              >
+                Submit
+              </Button>
+              <p className='mass-caution'>
+                <em>
+                  Caution: Once submitted cannot be changed, for more contact
+                  your administrator
+                </em>
+              </p>
+            </div>
           </div>
+
+          <TableContainer component={Paper}>
+            <Table sx={{ minWidth: 650 }} aria-label='simple table'>
+              <TableHead>
+                <TableRow>
+                  <TableCell>
+                    <strong>Employee Id</strong>
+                  </TableCell>
+                  <TableCell align='right'>
+                    <strong>Name</strong>
+                  </TableCell>
+                  <TableCell align='right'>
+                    <strong>Project</strong>
+                  </TableCell>
+                  <TableCell align='right'>
+                    <strong>Migrate to</strong>
+                  </TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {staffList.map((staff, index) => {
+                  return (
+                    <TableRow>
+                      <TableCell component='th' scope='row'>
+                        {staff.id}
+                      </TableCell>
+                      <TableCell align='right'>{staff.name}</TableCell>
+                      <TableCell align='right'>{staff.project}</TableCell>
+
+                      <TableCell align='right'>
+                        <Select
+                          size='small'
+                          onChange={handleChange}
+                          value={projects.status}
+                          sx={{ width: "100%" }}
+                          // inputProps={{ 'aria-label': 'Without label' }}
+                        >
+                          {projects.map((project) => {
+                            return (
+                              <MenuItem value={project.projectname}>
+                                {project.projectname}
+                              </MenuItem>
+                            );
+                          })}
+                        </Select>
+                      </TableCell>
+                    </TableRow>
+                  );
+                })}
+              </TableBody>
+            </Table>
+          </TableContainer>
         </div>
-
-        <TableContainer component={Paper}>
-          <Table sx={{ minWidth: 650 }} aria-label='simple table'>
-            <TableHead>
-              <TableRow>
-                <TableCell>
-                  <strong>Employee Id</strong>
-                </TableCell>
-                <TableCell align='right'>
-                  <strong>Name</strong>
-                </TableCell>
-                <TableCell align='right'>
-                  <strong>Project</strong>
-                </TableCell>
-                <TableCell align='right'>
-                  <strong>Migrate to</strong>
-                </TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {staffList.map((staff, index) => {
-                return (
-                  <TableRow>
-                    <TableCell component='th' scope='row'>
-                      {staff.id}
-                    </TableCell>
-                    <TableCell align='right'>{staff.name}</TableCell>
-                    <TableCell align='right'>{staff.project}</TableCell>
-
-                    <TableCell align='right'>
-                      <Select
-                        size='small'
-                        onChange={handleChange}
-                        value={projects.status}
-                        sx={{ width: "100%" }}
-                        // inputProps={{ 'aria-label': 'Without label' }}
-                      >
-                        {projects.map((project) => {
-                          return (
-                            <MenuItem value={project.projectname}>
-                              {project.projectname}
-                            </MenuItem>
-                          );
-                        })}
-                      </Select>
-                    </TableCell>
-                  </TableRow>
-                );
-              })}
-            </TableBody>
-          </Table>
-        </TableContainer>
       </div>
     </div>
   );

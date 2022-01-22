@@ -1,6 +1,5 @@
 import React from "react";
 import "./app.css";
-import Sidebar from "./components/sidebar/Sidebar";
 import Topbar from "./components/topbar/Topbar";
 import AgentDashboard from "./pages/agentDashboard/AgentDashboard";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
@@ -13,27 +12,56 @@ import AddProjects from "./pages/projects/addNewProjects/AddProjects";
 import MassMigration from "./pages/projects/massMigration/MassMigration";
 import Staffdb from "./pages/Staffs/staffDatabase/Staffdb";
 import Login from "./pages/login/Login";
+import Homepage from "./pages/homepage/Homepage";
+import Protected from "./pages/protectedRoute/Protected";
 
 function App() {
   return (
-    <Router>
+    <div>
       <Topbar />
-      {/* <Login /> */}
-      <div className='container'>
-        <Sidebar />
+      <Router>
         <Routes>
-          <Route path='/project-overview' element={<AgentDashboard />} />
-          <Route path='/' exact element={<BirdEyeView />} />
-          <Route path='/add-new-staff' element={<NewStaffEntry />} />
-          <Route path='/user-access' element={<UserAccess />} />
-          <Route path='/create-new-user' element={<NewUser />} />
-          <Route path='/staff-attendance' element={<StaffAttendance />} />
-          <Route path='/add-new-projects' element={<AddProjects />} />
-          <Route path='/mass-migration' element={<MassMigration />} />
-          <Route path='/staff-database' element={<Staffdb />} />
+          <Route path='/' exact element={<Login />} />
+          <Route
+            path='/project-overview'
+            element={<Protected Comp={AgentDashboard} />}
+          />
+          <Route
+            path='/bird-eye-view'
+            element={<Protected Comp={BirdEyeView} />}
+          />
+          <Route
+            path='/add-new-staff'
+            element={<Protected Comp={NewStaffEntry} />}
+          />
+          <Route
+            path='/user-access'
+            element={<Protected Comp={UserAccess} />}
+          />
+          <Route
+            path='/create-new-user'
+            element={<Protected Comp={NewUser} />}
+          />
+          <Route
+            path='/staff-attendance'
+            element={<Protected Comp={StaffAttendance} />}
+          />
+          <Route
+            path='/add-new-projects'
+            element={<Protected Comp={AddProjects} />}
+          />
+          <Route
+            path='/mass-migration'
+            element={<Protected Comp={MassMigration} />}
+          />
+          <Route
+            path='/staff-database'
+            element={<Protected Comp={Staffdb} />}
+          />
+          {/* <Route path='/dashboard' element={<Protected Comp={Homepage} />} /> */}
         </Routes>
-      </div>
-    </Router>
+      </Router>
+    </div>
   );
 }
 

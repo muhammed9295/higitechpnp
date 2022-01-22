@@ -98,7 +98,7 @@ export default function Sidebar() {
 
         {/* PROJECTS - SECTION */}
 
-        {/* <div className='sidebar-menu'>
+        <div className='sidebar-menu'>
           <h3 className='sidebar-title'>Projects</h3>
 
           <ul className='sidebarList'>
@@ -117,7 +117,7 @@ export default function Sidebar() {
             </Link>
           </ul>
         </div>
-        <Divider /> */}
+        <Divider />
 
         {/* COMPLAINTS-SECTION */}
 
