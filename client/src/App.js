@@ -14,6 +14,7 @@ import Staffdb from "./pages/Staffs/staffDatabase/Staffdb";
 import Login from "./pages/login/Login";
 import Homepage from "./pages/homepage/Homepage";
 import Protected from "./pages/protectedRoute/Protected";
+import Staffevaluation from "./pages/Staffs/staffEvaluation/Staffevaluation";
 
 function App() {
   return (
@@ -57,6 +58,10 @@ function App() {
           <Route
             path='/staff-database'
             element={<Protected Comp={Staffdb} />}
+          />
+          <Route
+            path='/staff-evaluation'
+            element={<Protected Comp={Staffevaluation} />}
           />
           {/* <Route path='/dashboard' element={<Protected Comp={Homepage} />} /> */}
         </Routes>

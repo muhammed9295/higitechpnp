@@ -8,6 +8,7 @@
 }
 
 .sidebar-wrapper {
+  flex: 1;
   padding: 10px;
   position: fixed;
   width: calc(100% - 86%);

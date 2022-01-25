@@ -27,7 +27,7 @@ export default function Sidebar() {
   const style = { textDecoration: "none", color: "white" };
 
   return (
-    <div className='sidebar'>
+    <div className='sidebar '>
       <div className='sidebar-wrapper'>
         {/* ANALYTICS-SECTION */}
 
@@ -86,7 +86,7 @@ export default function Sidebar() {
               </li>
             </Link>
 
-            <Link to='/project-overview' style={style}>
+            <Link to='/staff-evaluation' style={style}>
               <li className='sidebarListItems'>
                 <AssignmentTurnedIn className='sidebar-icon' />
                 Staff Evaluation

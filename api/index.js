@@ -36,6 +36,7 @@ const db = mysql.createConnection({
 db.connect(function (err) {
   if (err) {
     console.log("Error connecting to DB");
+    console.log(err);
     return;
   }
   console.log("Connection established");
@@ -100,7 +101,7 @@ app.post("/api/staffs", (req, res, next) => {
       if (err) {
         console.log(err);
       } else {
-        res.send("value inserted");
+        res.send("Staff added");
       }
     }
   );
@@ -250,7 +251,7 @@ app.post("/api/add-projects", (req, res, next) => {
       if (err) {
         console.log(err);
       } else {
-        res.send("value inserted");
+        res.send("Project Added");
       }
     }
   );

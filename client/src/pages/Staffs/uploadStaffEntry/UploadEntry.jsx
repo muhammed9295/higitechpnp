@@ -52,7 +52,7 @@ function UploadEntry() {
     debugger;
     Axios.post("http://185.243.76.148:3001/api/staffs-upload", staffData)
       .then(() => {
-        console.log("success");
+        alert("success");
       })
       .catch(function (error) {
         console.log(error);
