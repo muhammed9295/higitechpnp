@@ -21,78 +21,7 @@ function Staffevaluation() {
           }}
         >
           <div className='evaluation-wrapper'>
-            <div className='text-field1'>
-              <TextField
-                sx={{ width: "30%", marginRight: "10px" }}
-                id='standard-basic'
-                label='Staff ID'
-                variant='standard'
-              />
-              <TextField
-                sx={{ width: "70%" }}
-                id='standard-basic'
-                label='Name'
-                variant='standard'
-              />
-            </div>
-            <div className='text-field2'>
-              <TextField
-                sx={{ width: "50%", marginRight: "10px" }}
-                id='standard-basic'
-                label='Designation'
-                variant='standard'
-              />
-              <TextField
-                sx={{ width: "50%" }}
-                id='standard-basic'
-                label='Department'
-                variant='standard'
-              />
-            </div>
-            <div className='text-field3'>
-              <TextField
-                sx={{ width: "30%", marginRight: "10px" }}
-                id='standard-basic'
-                label='Gender'
-                variant='standard'
-              />
-              <TextField
-                sx={{ width: "30%", marginRight: "10px" }}
-                id='standard-basic'
-                label='Nationality'
-                variant='standard'
-              />
-              <TextField
-                sx={{ width: "70%" }}
-                id='standard-basic'
-                label='Project'
-                variant='standard'
-              />
-            </div>
-            <div className='text-field4'>
-              <TextField
-                sx={{ width: "50%", marginRight: "10px" }}
-                id='standard-basic'
-                type='date'
-                label='Date of joining'
-                variant='standard'
-                InputLabelProps={{ shrink: true }}
-              />
-              <TextField
-                sx={{ width: "50%" }}
-                id='standard-basic'
-                type='date'
-                label='Date of birth'
-                variant='standard'
-                InputLabelProps={{ shrink: true }}
-              />
-              <Button
-                sx={{ backgroundColor: "red", margin: "30px", width: "20%" }}
-                variant='contained'
-              >
-                Submit
-              </Button>
-            </div>
+            <img src='./images/underconstruction.png' alt='' />
           </div>
         </Box>
       </Box>

@@ -27,12 +27,7 @@ function StaffAttendance() {
 
   const [staffList, setStaffList] = useState([]);
   const [search, setSearch] = useState("");
-  const [status, setStatus] = useState("");
-  const [inputFields, setInputFields] = useState([{ items: "" }]);
-
-  const handleAddFields = (newFeild) => {
-    // setInputFields(...inputFields, { items: "" });
-  };
+  const [status, setStatus] = useState(true);
 
   // Current date
   const current = new Date();
@@ -59,9 +54,9 @@ function StaffAttendance() {
           if (!element.date) {
             element.date = fullDate;
           }
-          if (!element.shift) {
-            element.shift = "morning";
-          }
+          // if (!element.shift) {
+          //   element.shift = "morning";
+          // }
         });
       }
       setStaffList(data.data);
@@ -79,8 +74,12 @@ function StaffAttendance() {
   // Adding Staff attendence
   const addAttendence = () => {
     Axios.post("http://185.243.76.148:3001/api/attendance", staffList)
-      .then(() => {
-        alert("Attendance submitted");
+      .then((response) => {
+        alert(response.data);
+        console.log(response.data);
+        if (response.data == "success") {
+          setStatus(true);
+        }
       })
       .catch(function (error) {
         console.log(error);
@@ -96,6 +95,54 @@ function StaffAttendance() {
       setStaffList(localList);
     }
   }
+
+  // Fetched Morning shift
+  const morningShift = async () => {
+    try {
+      const data = await Axios.get(
+        "http://185.243.76.148:3001/api/staff-morning"
+      );
+      if (data && data.data) {
+        data.data.forEach((element) => {
+          if (!element.date) {
+            element.date = fullDate;
+          }
+          if (!element.status) {
+            element.status = "present";
+          }
+        });
+      }
+
+      setStaffList(data.data);
+
+      setStatus(false);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  // Fetched Evening shift
+  const eveningShift = async () => {
+    try {
+      const data = await Axios.get(
+        "http://185.243.76.148:3001/api/staff-evening"
+      );
+      if (data && data.data) {
+        data.data.forEach((element) => {
+          if (!element.date) {
+            element.date = fullDate;
+          }
+          if (!element.status) {
+            element.status = "present";
+          }
+        });
+      }
+      setStaffList(data.data);
+      setStatus(false);
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   // Table Data
 
@@ -128,8 +175,23 @@ function StaffAttendance() {
                 />
                 <h2>{fullDate}</h2>
                 <Button
-                  sx={{ backgroundColor: "red", margin: "30px", width: "20%" }}
+                  sx={{ backgroundColor: "blue", margin: "30px", width: "10%" }}
                   variant='contained'
+                  onClick={morningShift}
+                >
+                  Morning
+                </Button>
+                <Button
+                  sx={{ backgroundColor: "blue", margin: "30px", width: "10%" }}
+                  variant='contained'
+                  onClick={eveningShift}
+                >
+                  Evening
+                </Button>
+                <Button
+                  sx={{ backgroundColor: "red", margin: "30px", width: "10%" }}
+                  variant='contained'
+                  disabled={status}
                   onClick={addAttendence}
                 >
                   Submit
@@ -142,22 +204,22 @@ function StaffAttendance() {
                       <TableCell>
                         <strong>Employee Id</strong>
                       </TableCell>
-                      <TableCell align='centre'>
+                      <TableCell align='center'>
                         <strong>Name</strong>
                       </TableCell>
-                      <TableCell align='centre'>
+                      <TableCell align='center'>
                         <strong>Designation</strong>
                       </TableCell>
-                      <TableCell align='centre'>
+                      <TableCell align='center'>
                         <strong>Project</strong>
                       </TableCell>
-                      <TableCell align='centre'>
+                      <TableCell align='center'>
                         <strong>Date</strong>
                       </TableCell>
-                      <TableCell align='centre'>
+                      <TableCell align='center'>
                         <strong>Status</strong>
                       </TableCell>
-                      <TableCell align='centre'>
+                      <TableCell align='center'>
                         <strong>Shift</strong>
                       </TableCell>
                     </TableRow>
@@ -184,7 +246,7 @@ function StaffAttendance() {
                       .map((staff, i) => {
                         return (
                           <TableRow key={staff.id}>
-                            <TableCell align='centre'>
+                            <TableCell align='center'>
                               {/* <TextField
                           id='standard-basic'
                           name='id'
@@ -195,7 +257,7 @@ function StaffAttendance() {
                         /> */}
                               {staff.id}
                             </TableCell>
-                            <TableCell align='centre'>
+                            <TableCell align='center'>
                               {/* <TextField
                           id='standard-basic'
                           name='name'
@@ -206,7 +268,7 @@ function StaffAttendance() {
                         /> */}
                               {staff.name}
                             </TableCell>
-                            <TableCell align='centre'>
+                            <TableCell align='center'>
                               {staff.designation}
                               {/* <TextField
                           id='standard-basic'
@@ -217,7 +279,7 @@ function StaffAttendance() {
                           value={staff.designation}
                         /> */}
                             </TableCell>
-                            <TableCell align='centre'>
+                            <TableCell align='center'>
                               {/* <TextField
                           id='standard-basic'
                           name='project'
@@ -228,7 +290,7 @@ function StaffAttendance() {
                         /> */}
                               {staff.project}
                             </TableCell>
-                            <TableCell align='centre'>
+                            <TableCell align='center'>
                               {/* <TextField
                           id='standard-basic'
                           name='date'
@@ -239,7 +301,7 @@ function StaffAttendance() {
                         /> */}
                               {staff.date}
                             </TableCell>
-                            <TableCell align='centre'>
+                            <TableCell align='center'>
                               <Select
                                 size='small'
                                 onChange={(e) => handleChange(e, i)}
@@ -257,8 +319,8 @@ function StaffAttendance() {
                                 <MenuItem value={"po"}>PO</MenuItem>
                               </Select>
                             </TableCell>
-                            <TableCell align='centre'>
-                              <Select
+                            <TableCell align='center'>
+                              {/* <Select
                                 size='small'
                                 onChange={(e) => handleChange(e, i)}
                                 name='shift'
@@ -268,7 +330,8 @@ function StaffAttendance() {
                                   Morning
                                 </MenuItem>
                                 <MenuItem value={"evening"}>Evening</MenuItem>
-                              </Select>
+                              </Select> */}
+                              {staff.shift}
                             </TableCell>
                           </TableRow>
                         );

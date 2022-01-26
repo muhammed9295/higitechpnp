@@ -222,7 +222,7 @@ function Test() {
                 <ListItemIcon>
                   <AssignmentTurnedIn />
                 </ListItemIcon>
-                <ListItemText>Staff Evaluation</ListItemText>
+                <ListItemText>Shift Changer</ListItemText>
               </ListItem>
             </Link>
           </List>

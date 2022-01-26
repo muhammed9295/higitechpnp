@@ -101,29 +101,32 @@ function Staffdb() {
                       <TableCell>
                         <strong>Employee Id</strong>
                       </TableCell>
-                      <TableCell align='right'>
+                      <TableCell align='left'>
                         <strong>Name</strong>
                       </TableCell>
-                      <TableCell align='right'>
+                      <TableCell align='left'>
                         <strong>Designation</strong>
                       </TableCell>
-                      <TableCell align='right'>
+                      <TableCell align='left'>
                         <strong>Department</strong>
                       </TableCell>
-                      <TableCell align='right'>
+                      <TableCell align='left'>
                         <strong>Gender</strong>
                       </TableCell>
-                      <TableCell align='right'>
+                      <TableCell align='left'>
                         <strong>Nationality</strong>
                       </TableCell>
-                      <TableCell align='right'>
+                      <TableCell align='left'>
                         <strong>Project</strong>
                       </TableCell>
-                      <TableCell align='right'>
+                      <TableCell align='left'>
                         <strong>Date of joining</strong>
                       </TableCell>
-                      <TableCell align='right'>
+                      <TableCell align='left'>
                         <strong>Date of birth</strong>
+                      </TableCell>
+                      <TableCell align='left'>
+                        <strong>Shift</strong>
                       </TableCell>
                     </TableRow>
                   </TableHead>
@@ -152,20 +155,21 @@ function Staffdb() {
                             <TableCell component='th' scope='row'>
                               {staff.id}
                             </TableCell>
-                            <TableCell align='right'>{staff.name}</TableCell>
-                            <TableCell align='right'>
+                            <TableCell align='left'>{staff.name}</TableCell>
+                            <TableCell align='left'>
                               {staff.designation}
                             </TableCell>
-                            <TableCell align='right'>
+                            <TableCell align='left'>
                               {staff.department}
                             </TableCell>
-                            <TableCell align='right'>{staff.gender}</TableCell>
-                            <TableCell align='right'>
+                            <TableCell align='left'>{staff.gender}</TableCell>
+                            <TableCell align='left'>
                               {staff.nationality}
                             </TableCell>
-                            <TableCell align='right'>{staff.project}</TableCell>
-                            <TableCell align='right'>{staff.doj}</TableCell>
-                            <TableCell align='right'>{staff.dob}</TableCell>
+                            <TableCell align='left'>{staff.project}</TableCell>
+                            <TableCell align='left'>{staff.doj}</TableCell>
+                            <TableCell align='left'>{staff.dob}</TableCell>
+                            <TableCell align='left'>{staff.shift}</TableCell>
                           </TableRow>
                         );
                       })}

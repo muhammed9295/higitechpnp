@@ -14,6 +14,7 @@ function NewStaffEntry() {
   const [project, setProject] = useState("");
   const [doj, setDoj] = useState("");
   const [dob, setDob] = useState("");
+  const [shift, setShift] = useState("Morning");
 
   const addStaff = () => {
     Axios.post("http://185.243.76.148:3001/api/staffs", {
@@ -26,6 +27,7 @@ function NewStaffEntry() {
       project: project,
       doj: doj,
       dob: dob,
+      shift: shift,
     })
       .then((response) => {
         alert(response.data);
@@ -57,7 +59,7 @@ function NewStaffEntry() {
                 sx={{ width: "30%", marginRight: "10px" }}
                 id='standard-basic'
                 label='Staff ID'
-                variant='standard'
+                variant='outlined'
                 onChange={(e) => {
                   setId(e.target.value);
                 }}
@@ -66,7 +68,7 @@ function NewStaffEntry() {
                 sx={{ width: "70%" }}
                 id='standard-basic'
                 label='Name'
-                variant='standard'
+                variant='outlined'
                 onChange={(e) => {
                   setName(e.target.value);
                 }}
@@ -77,7 +79,7 @@ function NewStaffEntry() {
                 sx={{ width: "50%", marginRight: "10px" }}
                 id='standard-basic'
                 label='Designation'
-                variant='standard'
+                variant='outlined'
                 onChange={(e) => {
                   setDesignation(e.target.value);
                 }}
@@ -86,7 +88,7 @@ function NewStaffEntry() {
                 sx={{ width: "50%" }}
                 id='standard-basic'
                 label='Department'
-                variant='standard'
+                variant='outlined'
                 onChange={(e) => {
                   setDepartment(e.target.value);
                 }}
@@ -97,7 +99,7 @@ function NewStaffEntry() {
                 sx={{ width: "30%", marginRight: "10px" }}
                 id='standard-basic'
                 label='Gender'
-                variant='standard'
+                variant='outlined'
                 onChange={(e) => {
                   setGender(e.target.value);
                 }}
@@ -106,18 +108,27 @@ function NewStaffEntry() {
                 sx={{ width: "30%", marginRight: "10px" }}
                 id='standard-basic'
                 label='Nationality'
-                variant='standard'
+                variant='outlined'
                 onChange={(e) => {
                   setNationality(e.target.value);
                 }}
               />
               <TextField
-                sx={{ width: "70%" }}
+                sx={{ width: "70%", marginRight: "10px" }}
                 id='standard-basic'
                 label='Project'
-                variant='standard'
+                variant='outlined'
                 onChange={(e) => {
                   setProject(e.target.value);
+                }}
+              />
+              <TextField
+                sx={{ width: "20%" }}
+                id='standard-basic'
+                label='Shift'
+                variant='outlined'
+                onChange={(e) => {
+                  setShift(e.target.value);
                 }}
               />
             </div>
@@ -127,7 +138,7 @@ function NewStaffEntry() {
                 id='standard-basic'
                 type='date'
                 label='Date of joining'
-                variant='standard'
+                variant='outlined'
                 onChange={(e) => {
                   setDoj(e.target.value);
                 }}
@@ -138,7 +149,7 @@ function NewStaffEntry() {
                 id='standard-basic'
                 type='date'
                 label='Date of birth'
-                variant='standard'
+                variant='outlined'
                 onChange={(e) => {
                   setDob(e.target.value);
                 }}

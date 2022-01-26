@@ -93,10 +93,22 @@ app.post("/api/staffs", (req, res, next) => {
   const project = req.body.project;
   const doj = req.body.doj;
   const dob = req.body.dob;
+  const shift = req.body.shift;
 
   db.query(
-    "INSERT INTO staffs_information (id, name, designation, department, gender, nationality, project, doj, dob) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
-    [id, name, designation, department, gender, nationality, project, doj, dob],
+    "INSERT INTO staffs_information (id, name, designation, department, gender, nationality, project, doj, dob, shift) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+    [
+      id,
+      name,
+      designation,
+      department,
+      gender,
+      nationality,
+      project,
+      doj,
+      dob,
+      shift,
+    ],
     (err, result) => {
       if (err) {
         console.log(err);
@@ -111,7 +123,7 @@ app.post("/api/staffs", (req, res, next) => {
 app.post("/api/staffs-upload", (req, res, next) => {
   let info = !req.body ? [] : req.body;
   db.query(
-    "INSERT INTO staffs_information (id, name, designation, department, gender, nationality, project, doj, dob) VALUES ?",
+    "INSERT INTO staffs_information (id, name, designation, department, gender, nationality, project, doj, dob, shift) VALUES ?",
     [
       info.map((item) => [
         item.employeeid,
@@ -123,6 +135,7 @@ app.post("/api/staffs-upload", (req, res, next) => {
         item.projects,
         item.doj,
         item.dob,
+        item.shift,
       ]),
     ],
     (err, result) => {
@@ -149,12 +162,41 @@ app.get("/api/staff-details", (req, res, next) => {
   });
 });
 
+// Fetch morning shifts
+app.get("/api/staff-morning", (req, res, next) => {
+  db.query(
+    "SELECT * FROM staffs_information WHERE shift='Morning'",
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send(result);
+      }
+    }
+  );
+});
+
+// Fetch evening shifts
+app.get("/api/staff-evening", (req, res, next) => {
+  db.query(
+    "SELECT * FROM staffs_information WHERE shift='Evening'",
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send(result);
+      }
+    }
+  );
+});
+
 // Post daily attendance
 app.post("/api/attendance", (req, res, next) => {
   let items = !req.body ? [] : req.body;
-  let attendanceData = null;
+  // let attendanceData = null;
   // if (items && items.length && items.length > 0) {
   //   attendanceData = items[0].date;
+  //   res.send("already submitted");
   // }
 
   // if (attendanceData) {
@@ -182,7 +224,7 @@ app.post("/api/attendance", (req, res, next) => {
       if (err) {
         console.log(err);
       } else {
-        res.send("value inserted");
+        res.send("success");
       }
     }
   );

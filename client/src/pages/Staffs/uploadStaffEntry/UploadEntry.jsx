@@ -94,29 +94,32 @@ function UploadEntry() {
                   <TableCell>
                     <strong>Employee Id</strong>
                   </TableCell>
-                  <TableCell align='right'>
+                  <TableCell align='center'>
                     <strong>Name</strong>
                   </TableCell>
-                  <TableCell align='right'>
+                  <TableCell align='center'>
                     <strong>Designation</strong>
                   </TableCell>
-                  <TableCell align='right'>
+                  <TableCell align='center'>
                     <strong>Department</strong>
                   </TableCell>
-                  <TableCell align='right'>
+                  <TableCell align='center'>
                     <strong>Gender</strong>
                   </TableCell>
-                  <TableCell align='right'>
+                  <TableCell align='center'>
                     <strong>Nationality</strong>
                   </TableCell>
-                  <TableCell align='right'>
+                  <TableCell align='center'>
                     <strong>Project</strong>
                   </TableCell>
-                  <TableCell align='right'>
+                  <TableCell align='center'>
                     <strong>Date of joining</strong>
                   </TableCell>
-                  <TableCell align='right'>
+                  <TableCell align='center'>
                     <strong>Date of birth</strong>
+                  </TableCell>
+                  <TableCell align='center'>
+                    <strong>Shift</strong>
                   </TableCell>
                 </TableRow>
               </TableHead>
@@ -126,14 +129,15 @@ function UploadEntry() {
                     <TableCell component='th' scope='row'>
                       {d.employeeid}
                     </TableCell>
-                    <TableCell align='right'>{d.name}</TableCell>
-                    <TableCell align='right'>{d.designation}</TableCell>
-                    <TableCell align='right'>{d.department}</TableCell>
-                    <TableCell align='right'>{d.gender}</TableCell>
-                    <TableCell align='right'>{d.nationality}</TableCell>
-                    <TableCell align='right'>{d.projects}</TableCell>
-                    <TableCell align='right'>{d.doj}</TableCell>
-                    <TableCell align='right'>{d.dob}</TableCell>
+                    <TableCell align='center'>{d.name}</TableCell>
+                    <TableCell align='center'>{d.designation}</TableCell>
+                    <TableCell align='center'>{d.department}</TableCell>
+                    <TableCell align='center'>{d.gender}</TableCell>
+                    <TableCell align='center'>{d.nationality}</TableCell>
+                    <TableCell align='center'>{d.projects}</TableCell>
+                    <TableCell align='center'>{d.doj}</TableCell>
+                    <TableCell align='center'>{d.dob}</TableCell>
+                    <TableCell align='center'>{d.shift}</TableCell>
                   </TableRow>
                 ))}
               </TableBody>
