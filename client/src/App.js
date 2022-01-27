@@ -14,7 +14,7 @@ import Staffdb from "./pages/Staffs/staffDatabase/Staffdb";
 import Login from "./pages/login/Login";
 import Homepage from "./pages/homepage/Homepage";
 import Protected from "./pages/protectedRoute/Protected";
-import Staffevaluation from "./pages/Staffs/staffEvaluation/Staffevaluation";
+import ShiftChanger from "./pages/Staffs/shiftChanger/ShiftChanger";
 
 function App() {
   return (
@@ -60,9 +60,10 @@ function App() {
             element={<Protected Comp={Staffdb} />}
           />
           <Route
-            path='/staff-evaluation'
-            element={<Protected Comp={Staffevaluation} />}
+            path='/shift-changer'
+            element={<Protected Comp={ShiftChanger} />}
           />
+
           {/* <Route path='/dashboard' element={<Protected Comp={Homepage} />} /> */}
         </Routes>
       </Router>

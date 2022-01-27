@@ -176,6 +176,40 @@ app.get("/api/staff-morning", (req, res, next) => {
   );
 });
 
+// Update morning shifts
+app.put("/api/update-morning", (req, res, next) => {
+  const name = req.body.name;
+  const shift = "Morning";
+  db.query(
+    "UPDATE staffs_information SET shift = ? WHERE name = ?",
+    [shift, name],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send("Shifted to Morning");
+      }
+    }
+  );
+});
+
+// Update evening shifts
+app.put("/api/update-evening", (req, res, next) => {
+  const name = req.body.name;
+  const shift = "Evening";
+  db.query(
+    "UPDATE staffs_information SET shift = ? WHERE name = ?",
+    [shift, name],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send("Shifted to Evening");
+      }
+    }
+  );
+});
+
 // Fetch evening shifts
 app.get("/api/staff-evening", (req, res, next) => {
   db.query(

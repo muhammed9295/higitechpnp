@@ -151,7 +151,7 @@ function Test() {
               <MenuIcon />
             </IconButton>
             <span className='logo'>
-              <img src='./images/higi-icon.png' alt='logo' />
+              <img src='./images/higi-logo.png' alt='logo' />
             </span>
           </Toolbar>
         </AppBar>
@@ -217,7 +217,7 @@ function Test() {
               </ListItem>
             </Link>
 
-            <Link to='/staff-evaluation' style={style}>
+            <Link to='/shift-changer' style={style}>
               <ListItem>
                 <ListItemIcon>
                   <AssignmentTurnedIn />
@@ -239,7 +239,7 @@ function Test() {
               </ListItem>
             </Link>
 
-            <Link to='/' style={style}>
+            <Link to='/shift-changer' style={style}>
               <ListItem>
                 <ListItemIcon>
                   <CompareArrows />

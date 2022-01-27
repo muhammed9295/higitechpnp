@@ -246,61 +246,15 @@ function StaffAttendance() {
                       .map((staff, i) => {
                         return (
                           <TableRow key={staff.id}>
-                            <TableCell align='center'>
-                              {/* <TextField
-                          id='standard-basic'
-                          name='id'
-                          label='Id'
-                          onChange={(e) => handleChange(e, i)}
-                          variant='standard'
-                          value={staff.id}
-                        /> */}
-                              {staff.id}
-                            </TableCell>
-                            <TableCell align='center'>
-                              {/* <TextField
-                          id='standard-basic'
-                          name='name'
-                          label='Name'
-                          onChange={(e) => handleChange(e, i)}
-                          variant='standard'
-                          value={staff.name}
-                        /> */}
-                              {staff.name}
-                            </TableCell>
+                            <TableCell align='center'>{staff.id}</TableCell>
+                            <TableCell align='center'>{staff.name}</TableCell>
                             <TableCell align='center'>
                               {staff.designation}
-                              {/* <TextField
-                          id='standard-basic'
-                          name='designation'
-                          label='Designation'
-                          onChange={(e) => handleChange(e, i)}
-                          variant='standard'
-                          value={staff.designation}
-                        /> */}
                             </TableCell>
                             <TableCell align='center'>
-                              {/* <TextField
-                          id='standard-basic'
-                          name='project'
-                          label='Project'
-                          onChange={(e) => handleChange(e, i)}
-                          variant='standard'
-                          value={staff.project}
-                        /> */}
                               {staff.project}
                             </TableCell>
-                            <TableCell align='center'>
-                              {/* <TextField
-                          id='standard-basic'
-                          name='date'
-                          label='Date'
-                          onChange={(e) => handleChange(e, i)}
-                          variant='standard'
-                          value={staff.date || new Date()}
-                        /> */}
-                              {staff.date}
-                            </TableCell>
+                            <TableCell align='center'>{staff.date}</TableCell>
                             <TableCell align='center'>
                               <Select
                                 size='small'
@@ -319,20 +273,7 @@ function StaffAttendance() {
                                 <MenuItem value={"po"}>PO</MenuItem>
                               </Select>
                             </TableCell>
-                            <TableCell align='center'>
-                              {/* <Select
-                                size='small'
-                                onChange={(e) => handleChange(e, i)}
-                                name='shift'
-                                value={staff.shift}
-                              >
-                                <MenuItem value={"morning"} selected>
-                                  Morning
-                                </MenuItem>
-                                <MenuItem value={"evening"}>Evening</MenuItem>
-                              </Select> */}
-                              {staff.shift}
-                            </TableCell>
+                            <TableCell align='center'>{staff.shift}</TableCell>
                           </TableRow>
                         );
                       })}
