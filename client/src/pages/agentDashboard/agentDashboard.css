@@ -1,9 +1,4 @@
 .agentDashboard {
-  flex: 5.5;
   display: flex;
   flex-wrap: wrap;
-  background-color: rgb(243, 243, 243);
-  align-items: center;
-  justify-content: center;
-  height: calc(100% - 50px);
 }

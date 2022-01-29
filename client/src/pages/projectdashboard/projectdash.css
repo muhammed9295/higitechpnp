@@ -1,0 +1,25 @@
+.birdEyeView-container {
+  display: flex;
+  flex-wrap: wrap;
+  width: calc(100% - 20px);
+}
+
+.overview {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 50%;
+  /* background-color: cornsilk; */
+}
+
+.all-projects {
+  width: 100%;
+  padding: 20px 5px;
+}
+
+.project-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}

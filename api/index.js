@@ -82,6 +82,101 @@ app.post("/api/login", (req, res, next) => {
   );
 });
 
+// Bird Eye View routes
+// Attendence Overview - Today
+app.get("/api/attendence-overview", (req, res) => {
+  const current = new Date();
+  const today = `${current.getFullYear()}-${
+    current.getMonth() + 1
+  }-${current.getDate()}`;
+
+  db.query(
+    "SELECT * FROM staff_attendence WHERE DATE(time_stamp)= CURDATE()",
+    // [today],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        let status = result.map(function (i) {
+          return i.status;
+        });
+        res.send(status);
+      }
+    }
+  );
+});
+// Attendence Overview - Yesterday
+app.get("/api/attendence-yesterday", (req, res, next) => {
+  db.query(
+    "SELECT * FROM staff_attendence WHERE DATE(time_stamp)= CURDATE() - 1",
+    // [today],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        let status = result.map(function (i) {
+          return i.status;
+        });
+        res.send(status);
+      }
+    }
+  );
+});
+
+// Attendence Overview - This month
+app.get("/api/attendence-thismonth", (req, res, next) => {
+  db.query(
+    "SELECT * FROM staff_attendence WHERE YEAR(time_stamp)= YEAR(CURRENT_DATE()) AND MONTH(time_stamp) = MONTH(CURRENT_DATE())",
+    // [today],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        let status = result.map(function (i) {
+          return i.status;
+        });
+        res.send(status);
+      }
+    }
+  );
+});
+
+// Attendence Overview - Last month
+app.get("/api/attendence-lastmonth", (req, res, next) => {
+  db.query(
+    "SELECT * FROM staff_attendence WHERE YEAR(time_stamp)= YEAR(CURRENT_DATE() - INTERVAL 1 MONTH) AND MONTH(time_stamp) = MONTH(CURRENT_DATE() - INTERVAL 1 MONTH)",
+    // [today],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        let status = result.map(function (i) {
+          return i.status;
+        });
+        res.send(status);
+      }
+    }
+  );
+});
+
+// Attendence Overview - All
+app.get("/api/attendence-all", (req, res, next) => {
+  db.query(
+    "SELECT * FROM staff_attendence",
+    // [today],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        let status = result.map(function (i) {
+          return i.status;
+        });
+        res.send(status);
+      }
+    }
+  );
+});
+
 // create staffs
 app.post("/api/staffs", (req, res, next) => {
   const id = req.body.id;
@@ -166,11 +261,11 @@ app.get("/api/staff-details", (req, res, next) => {
 app.get("/api/staff-morning", (req, res, next) => {
   db.query(
     "SELECT * FROM staffs_information WHERE shift='Morning'",
-    (err, result) => {
+    (err, data) => {
       if (err) {
         console.log(err);
       } else {
-        res.send(result);
+        res.send(data);
       }
     }
   );
@@ -213,7 +308,7 @@ app.put("/api/update-evening", (req, res, next) => {
 // Fetch evening shifts
 app.get("/api/staff-evening", (req, res, next) => {
   db.query(
-    "SELECT * FROM staffs_information WHERE shift='Evening'",
+    "SELECT * FROM staffs_information WHERE shift='EVENING'",
     (err, result) => {
       if (err) {
         console.log(err);

@@ -38,21 +38,20 @@ function StaffAttendance() {
   const day = current.getDate();
   const year = current.getFullYear();
   const fullDate = `${day}-${month}-${year}`;
+  console.log(date);
 
   // All staff details shown in table
 
   const staffDetails = async () => {
     try {
-      const data = await Axios.get(
-        "http://185.243.76.148:3001/api/staff-details"
-      );
+      const data = await Axios.get("http://localhost:3001/api/staff-details");
       if (data && data.data) {
         data.data.forEach((element) => {
           if (!element.status) {
             element.status = "present";
           }
           if (!element.date) {
-            element.date = fullDate;
+            element.date = date;
           }
           // if (!element.shift) {
           //   element.shift = "morning";
@@ -73,7 +72,7 @@ function StaffAttendance() {
 
   // Adding Staff attendence
   const addAttendence = () => {
-    Axios.post("http://185.243.76.148:3001/api/attendance", staffList)
+    Axios.post("http://localhost:3001/api/attendance", staffList)
       .then((response) => {
         alert(response.data);
         console.log(response.data);
@@ -99,13 +98,11 @@ function StaffAttendance() {
   // Fetched Morning shift
   const morningShift = async () => {
     try {
-      const data = await Axios.get(
-        "http://185.243.76.148:3001/api/staff-morning"
-      );
+      const data = await Axios.get("http://localhost:3001/api/staff-morning");
       if (data && data.data) {
         data.data.forEach((element) => {
           if (!element.date) {
-            element.date = fullDate;
+            element.date = date;
           }
           if (!element.status) {
             element.status = "present";
@@ -124,13 +121,11 @@ function StaffAttendance() {
   // Fetched Evening shift
   const eveningShift = async () => {
     try {
-      const data = await Axios.get(
-        "http://185.243.76.148:3001/api/staff-evening"
-      );
+      const data = await Axios.get("http://localhost:3001/api/staff-evening");
       if (data && data.data) {
         data.data.forEach((element) => {
           if (!element.date) {
-            element.date = fullDate;
+            element.date = date;
           }
           if (!element.status) {
             element.status = "present";
@@ -164,7 +159,7 @@ function StaffAttendance() {
         >
           <div className='attendance-container container'>
             <div className='attendance-wrapper'>
-              <div className='title'>
+              <div className='attendence-title'>
                 <TextField
                   type='text'
                   size='small'

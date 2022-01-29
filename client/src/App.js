@@ -3,7 +3,6 @@ import "./app.css";
 import Topbar from "./components/topbar/Topbar";
 import AgentDashboard from "./pages/agentDashboard/AgentDashboard";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import BirdEyeView from "./pages/birdEyeView/BirdEyeView";
 import NewStaffEntry from "./pages/Staffs/newStaffEntry/NewStaffEntry";
 import UserAccess from "./pages/userAccess/UserAccess";
 import NewUser from "./pages/userAccess/NewUser";
@@ -12,9 +11,9 @@ import AddProjects from "./pages/projects/addNewProjects/AddProjects";
 import MassMigration from "./pages/projects/massMigration/MassMigration";
 import Staffdb from "./pages/Staffs/staffDatabase/Staffdb";
 import Login from "./pages/login/Login";
-import Homepage from "./pages/homepage/Homepage";
 import Protected from "./pages/protectedRoute/Protected";
 import ShiftChanger from "./pages/Staffs/shiftChanger/ShiftChanger";
+import ProjectDash from "./pages/projectdashboard/ProjectDash";
 
 function App() {
   return (
@@ -24,12 +23,12 @@ function App() {
         <Routes>
           <Route path='/' exact element={<Login />} />
           <Route
-            path='/project-overview'
+            path='/bird-eye-view'
             element={<Protected Comp={AgentDashboard} />}
           />
           <Route
-            path='/bird-eye-view'
-            element={<Protected Comp={BirdEyeView} />}
+            path='/project-overview'
+            element={<Protected Comp={ProjectDash} />}
           />
           <Route
             path='/add-new-staff'

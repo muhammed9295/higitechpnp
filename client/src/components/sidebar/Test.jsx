@@ -168,7 +168,7 @@ function Test() {
           <Divider />
           {/* Bird Eye View */}
           <List>
-            <Link to='/' style={style}>
+            <Link to='/bird-eye-view' style={style}>
               <ListItem>
                 <ListItemIcon>
                   <Visibility />
@@ -177,7 +177,7 @@ function Test() {
               </ListItem>
             </Link>
 
-            <Link to='/' style={style}>
+            <Link to='/project-overview' style={style}>
               <ListItem>
                 <ListItemIcon>
                   <SupportAgent />

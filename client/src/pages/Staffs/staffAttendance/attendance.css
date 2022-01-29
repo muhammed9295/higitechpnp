@@ -6,12 +6,13 @@
   /* justify-content: space-around; */
 }
 
-.title {
+.attendence-title {
   display: flex;
   align-items: center;
   justify-content: space-around;
   margin: 20px 0;
   color: gray;
+  width: (100vw - 120px);
 }
 
 .table {
