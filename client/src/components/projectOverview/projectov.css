@@ -1,3 +1,20 @@
 .projectov {
   width: 60%;
 }
+
+.title1 {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+
+  /* padding-top: 5px; */
+  color: gray;
+}
+
+.actual {
+  margin-bottom: 20px;
+}
+
+.current {
+  margin-bottom: 20px;
+}

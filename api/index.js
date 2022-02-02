@@ -308,7 +308,7 @@ app.put("/api/update-evening", (req, res, next) => {
 // Fetch evening shifts
 app.get("/api/staff-evening", (req, res, next) => {
   db.query(
-    "SELECT * FROM staffs_information WHERE shift='EVENING'",
+    "SELECT * FROM staffs_information WHERE shift='Evening'",
     (err, result) => {
       if (err) {
         console.log(err);
@@ -437,6 +437,29 @@ app.get("/api/get-projects", (req, res, next) => {
       res.send(result);
     }
   });
+});
+
+// Get projectwise attendence details
+app.get("/api/attendence-projectwise", (req, res) => {
+  const current = new Date();
+  const today = `${current.getFullYear()}-${
+    current.getMonth() + 1
+  }-${current.getDate()}`;
+
+  db.query(
+    "SELECT * FROM staff_attendence WHERE DATE(time_stamp)= CURDATE() AND status='present'",
+    // [today],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        let status = result.map(function (i) {
+          return i.project;
+        });
+        res.send(status);
+      }
+    }
+  );
 });
 
 app.listen(port, () => {

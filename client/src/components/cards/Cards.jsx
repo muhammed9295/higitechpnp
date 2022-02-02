@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./cards.css";
 import { TextField, Button, Paper, Divider } from "@mui/material";
 
@@ -35,7 +35,12 @@ export default function Cards(props) {
           <Divider sx={{ margin: 1 }} />
           <div className='card-details'>
             <p>Staff present</p>
-            <p className='counts'>
+            <p
+              className='counts'
+              style={{
+                color: props.present < props.manpower ? "red" : "green",
+              }}
+            >
               <strong>{props.present}</strong>
             </p>
           </div>
@@ -56,7 +61,12 @@ export default function Cards(props) {
           <Divider sx={{ margin: 1 }} />
           <div className='card-details'>
             <p>Difference value</p>
-            <p className='counts'>
+            <p
+              className='counts'
+              style={{
+                color: props.difference < 0 ? "red" : "green",
+              }}
+            >
               <strong>{props.difference}</strong>
             </p>
           </div>

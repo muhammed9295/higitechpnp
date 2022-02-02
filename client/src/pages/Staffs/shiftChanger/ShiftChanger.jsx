@@ -33,7 +33,9 @@ function Staffevaluation() {
   // Fetched Morning shift
   const morningShift = async () => {
     try {
-      const data = await Axios.get("http://localhost:3001/api/staff-morning");
+      const data = await Axios.get(
+        "http://185.243.76.148:3001/api/staff-morning"
+      );
       setStaffList1(data.data);
     } catch (e) {
       console.log(e);

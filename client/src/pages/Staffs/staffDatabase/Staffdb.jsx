@@ -34,7 +34,9 @@ function Staffdb() {
 
   const staffDetails = async () => {
     try {
-      const data = await Axios.get("http://localhost:3001/api/staff-details");
+      const data = await Axios.get(
+        "http://185.243.76.148:3001/api/staff-details"
+      );
       console.log(data.data);
       setStaffList(data.data);
     } catch (e) {
