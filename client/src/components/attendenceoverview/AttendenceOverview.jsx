@@ -45,7 +45,7 @@ function AttendenceOverview() {
   const getToday = async () => {
     try {
       const data = await Axios.get(
-        "http://localhost:3001/api/attendence-overview-morning"
+        "http://185.243.76.148:3001/api/attendence-overview-morning"
       );
       setMorn(data.data);
     } catch (e) {
@@ -54,7 +54,7 @@ function AttendenceOverview() {
 
     try {
       const d = await Axios.get(
-        "http://localhost:3001/api/attendence-overview-evening"
+        "http://185.243.76.148:3001/api/attendence-overview-evening"
       );
 
       setEve(d.data);
@@ -119,7 +119,7 @@ function AttendenceOverview() {
   const getYesterday = async () => {
     try {
       const data = await Axios.get(
-        "http://localhost:3001/api/attendence-morning-yesterday"
+        "http://185.243.76.148:3001/api/attendence-morning-yesterday"
       );
       setYestMorn(data.data);
     } catch (e) {
@@ -128,7 +128,7 @@ function AttendenceOverview() {
 
     try {
       const d = await Axios.get(
-        "http://localhost:3001/api/attendence-evening-yesterday"
+        "http://185.243.76.148:3001/api/attendence-evening-yesterday"
       );
 
       setYestEve(d.data);
@@ -192,7 +192,7 @@ function AttendenceOverview() {
   const getThismonth = async () => {
     try {
       const data = await Axios.get(
-        "http://localhost:3001/api/attendence-morning-thismonth"
+        "http://185.243.76.148:3001/api/attendence-morning-thismonth"
       );
       setCurMorn(data.data);
     } catch (e) {
@@ -201,7 +201,7 @@ function AttendenceOverview() {
 
     try {
       const d = await Axios.get(
-        "http://localhost:3001/api/attendence-evening-thismonth"
+        "http://185.243.76.148:3001/api/attendence-evening-thismonth"
       );
 
       setCurEve(d.data);
@@ -265,7 +265,7 @@ function AttendenceOverview() {
   const getLastmonth = async () => {
     try {
       const data = await Axios.get(
-        "http://localhost:3001/api/attendence-morning-lastmonth"
+        "http://185.243.76.148:3001/api/attendence-morning-lastmonth"
       );
       setLastMorn(data.data);
     } catch (e) {
@@ -274,7 +274,7 @@ function AttendenceOverview() {
 
     try {
       const d = await Axios.get(
-        "http://localhost:3001/api/attendence-evening-lastmonth"
+        "http://185.243.76.148:3001/api/attendence-evening-lastmonth"
       );
 
       setLastEve(d.data);
@@ -338,7 +338,7 @@ function AttendenceOverview() {
   const getAllmonth = async () => {
     try {
       const data = await Axios.get(
-        "http://localhost:3001/api/attendence-morning-all"
+        "http://185.243.76.148:3001/api/attendence-morning-all"
       );
       setAllMorn(data.data);
     } catch (e) {
@@ -347,7 +347,7 @@ function AttendenceOverview() {
 
     try {
       const d = await Axios.get(
-        "http://localhost:3001/api/attendence-evening-all"
+        "http://185.243.76.148:3001/api/attendence-evening-all"
       );
 
       setAllEve(d.data);

@@ -54,7 +54,7 @@ export default function ProjectDash() {
   const projAttendence = async () => {
     try {
       const data = await Axios.get(
-        "http://localhost:3001/api/attendence-overview-morning"
+        "http://185.243.76.148:3001/api/attendence-overview-morning"
       );
       setMorn(data.data);
     } catch (e) {
@@ -63,7 +63,7 @@ export default function ProjectDash() {
 
     try {
       const d = await Axios.get(
-        "http://localhost:3001/api/attendence-overview-evening"
+        "http://185.243.76.148:3001/api/attendence-overview-evening"
       );
 
       setEve(d.data);

@@ -43,7 +43,9 @@ function StaffAttendance() {
 
   const staffDetails = async () => {
     try {
-      const data = await Axios.get("http://localhost:3001/api/staff-details");
+      const data = await Axios.get(
+        "http://185.243.76.148:3001/api/staff-details"
+      );
       if (data && data.data) {
         data.data.forEach((element) => {
           if (!element.status) {
@@ -74,7 +76,9 @@ function StaffAttendance() {
   // Get morning attendence data
   const getAttMorning = async () => {
     try {
-      const d = await Axios.get("http://localhost:3001/api/morning-attendence");
+      const d = await Axios.get(
+        "http://185.243.76.148:3001/api/morning-attendence"
+      );
 
       setMorn(d.data);
     } catch (e) {
@@ -85,7 +89,9 @@ function StaffAttendance() {
   // Get evening attendence data
   const getAttEvening = async () => {
     try {
-      const d = await Axios.get("http://localhost:3001/api/evening-attendence");
+      const d = await Axios.get(
+        "http://185.243.76.148:3001/api/evening-attendence"
+      );
 
       setEve(d.data);
     } catch (e) {
@@ -96,7 +102,7 @@ function StaffAttendance() {
   let array = mor.concat(eve);
 
   const sendEmail = () => {
-    Axios.post("http://localhost:3001/api/mail", array)
+    Axios.post("http://185.243.76.148:3001/api/mail", array)
       .then((response) => {
         console.log(response.data);
       })
@@ -107,7 +113,7 @@ function StaffAttendance() {
 
   // Adding Staff attendence
   const addAttendence = (e) => {
-    Axios.post("http://localhost:3001/api/attendance", staffList)
+    Axios.post("http://185.243.76.148:3001/api/attendance", staffList)
       .then((response) => {
         alert(response.data);
         console.log(response.data);

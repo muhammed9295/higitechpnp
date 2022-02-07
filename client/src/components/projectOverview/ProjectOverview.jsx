@@ -37,7 +37,7 @@ function ProjectOverview() {
   const projattendence = async () => {
     try {
       const data = await Axios.get(
-        "http://localhost:3001/api/attendence-morning-projectwise"
+        "http://185.243.76.148:3001/api/attendence-morning-projectwise"
       );
       setMorn(data.data);
     } catch (e) {
@@ -46,7 +46,7 @@ function ProjectOverview() {
 
     try {
       const d = await Axios.get(
-        "http://localhost:3001/api/attendence-evening-projectwise"
+        "http://185.243.76.148:3001/api/attendence-evening-projectwise"
       );
 
       setEve(d.data);
