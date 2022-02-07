@@ -27,6 +27,8 @@ export default function ProjectDash() {
   const [roda, setRoda] = useState();
   const [serv, setServ] = useState();
   const [sofitel, setSofitel] = useState();
+  const [morn, setMorn] = useState([]);
+  const [eve, setEve] = useState([]);
 
   // Number of days in a month
   let dt = new Date();
@@ -49,206 +51,217 @@ export default function ProjectDash() {
   };
 
   // Fetch projectwise attendence details
-  const projattendence = async () => {
+  const projAttendence = async () => {
     try {
       const data = await Axios.get(
-        "http://185.243.76.148:3001/api/attendence-projectwise"
+        "http://localhost:3001/api/attendence-overview-morning"
       );
-      const response = data.data;
-      let proj1 = response.filter((v) => {
-        return v == "SERVE-HUB";
-      });
-      setServ(proj1.length);
-
-      let proj2 = response.filter(checkProj2);
-      function checkProj2(v) {
-        return v == "F1RST MOTORS";
-      }
-      setFirst(proj2.length);
-
-      let proj3 = response.filter(checkProj3);
-      function checkProj3(v) {
-        return v == "AVANI HOTEL";
-      }
-      setAvani(proj3.length);
-
-      let proj4 = response.filter(checkProj4);
-      function checkProj4(v) {
-        return v == "RODA AMWAJ JBR";
-      }
-      setRoda(proj4.length);
-
-      let proj5 = response.filter(checkProj5);
-      function checkProj5(v) {
-        return v == "FAIRMONT HOTEL THE PALM";
-      }
-      setFair(proj5.length);
-
-      let proj6 = response.filter(checkProj6);
-      function checkProj6(v) {
-        return v == "25HRS HOTEL WTC";
-      }
-      setTwentyfive(proj6.length);
-
-      let proj7 = response.filter(checkProj7);
-      function checkProj7(v) {
-        return v == "ME DUBAI HOTEL BUSINESS BAY";
-      }
-
-      setMe(proj7.length);
-
-      let proj8 = response.filter(checkProj8);
-      function checkProj8(v) {
-        return v == "GRAND MILLENIUM BUSINESS BAY";
-      }
-
-      setGrandMel(proj8.length);
-
-      let proj9 = response.filter(checkProj9);
-      function checkProj9(v) {
-        return v == "GRAND MILLENIUM TECOM";
-      }
-
-      setGrandTec(proj9.length);
-
-      let proj10 = response.filter(checkProj10);
-      function checkProj10(v) {
-        return v == "HILTON JBR";
-      }
-
-      setHilton(proj10.length);
-
-      let proj11 = response.filter(checkProj11);
-      function checkProj11(v) {
-        return v == "NURAN DUBAI MARINA";
-      }
-
-      setNuran(proj11.length);
-
-      let proj12 = response.filter(checkProj12);
-      function checkProj12(v) {
-        return v == "AVANI IBN BATUTTA";
-      }
-
-      setAvaniIbn(proj12.length);
-
-      let proj13 = response.filter(checkProj13);
-      function checkProj13(v) {
-        return v == "BLACK PLATINUM SALOON FINANCIAL CENTER";
-      }
-
-      setBlack(proj13.length);
-
-      let proj14 = response.filter(checkProj14);
-      function checkProj14(v) {
-        return v == "BOHO CAFÉ FINANCIAL CENTER";
-      }
-      setBoho(proj14.length);
-
-      let proj15 = response.filter(checkProj15);
-      function checkProj15(v) {
-        return v == "SOFITEL WAFI MALL";
-      }
-      setSofitel(proj15.length);
-
-      let proj16 = response.filter(checkProj16);
-      function checkProj16(v) {
-        return v == "ADANI GROUP";
-      }
-      setAdanigroup(proj16.length);
-
-      let proj17 = response.filter(checkProj17);
-      function checkProj17(v) {
-        return v == "NIKKI BEACH";
-      }
-
-      let proj18 = response.filter(checkProj18);
-      function checkProj18(v) {
-        return v == "RAFFLE WAFI MALL";
-      }
-
-      console.log(proj1);
+      setMorn(data.data);
     } catch (e) {
       console.log(e);
     }
+
+    try {
+      const d = await Axios.get(
+        "http://localhost:3001/api/attendence-overview-evening"
+      );
+
+      setEve(d.data);
+    } catch (e) {
+      console.log(e);
+    }
+    let response = morn.concat(eve);
+    let proj1 = response.filter((v) => {
+      return v == "SERVE-HUB ";
+    });
+    setServ(proj1.length);
+
+    let proj2 = response.filter(checkProj2);
+    function checkProj2(v) {
+      return v == "F1RST MOTORS  ";
+    }
+    setFirst(proj2.length);
+
+    let proj3 = response.filter(checkProj3);
+    function checkProj3(v) {
+      return v == "AVANI HOTEL";
+    }
+    setAvani(proj3.length);
+
+    let proj4 = response.filter(checkProj4);
+    function checkProj4(v) {
+      return v == "RODA AMWAJ JBR ";
+    }
+    setRoda(proj4.length);
+
+    let proj5 = response.filter(checkProj5);
+    function checkProj5(v) {
+      return v == "FAIRMONT HOTEL THE PALM ";
+    }
+    setFair(proj5.length);
+
+    let proj6 = response.filter(checkProj6);
+    function checkProj6(v) {
+      return v == "25HRS HOTEL WTC ";
+    }
+    setTwentyfive(proj6.length);
+
+    let proj7 = response.filter(checkProj7);
+    function checkProj7(v) {
+      return v == "ME DUBAI HOTEL BUSINESS BAY ";
+    }
+
+    setMe(proj7.length);
+
+    let proj8 = response.filter(checkProj8);
+    function checkProj8(v) {
+      return v == "GRAND MILLENIUM BUSINESS BAY ";
+    }
+
+    setGrandMel(proj8.length);
+
+    let proj9 = response.filter(checkProj9);
+    function checkProj9(v) {
+      return v == "GRAND MILLENIUM TECOM ";
+    }
+
+    setGrandTec(proj9.length);
+
+    let proj10 = response.filter(checkProj10);
+    function checkProj10(v) {
+      return v == "HILTON JBR ";
+    }
+
+    setHilton(proj10.length);
+
+    let proj11 = response.filter(checkProj11);
+    function checkProj11(v) {
+      return v == "NURAN DUBAI MARINA  ";
+    }
+
+    setNuran(proj11.length);
+
+    let proj12 = response.filter(checkProj12);
+    function checkProj12(v) {
+      return v == "AVANI IBN BATUTTA ";
+    }
+
+    setAvaniIbn(proj12.length);
+
+    let proj13 = response.filter(checkProj13);
+    function checkProj13(v) {
+      return v == "BLACK PLATINUM SALOON FINANCIAL CENTER ";
+    }
+
+    setBlack(proj13.length);
+
+    let proj14 = response.filter(checkProj14);
+    function checkProj14(v) {
+      return v == "BOHO CAFÉ FINANCIAL CENTER ";
+    }
+    setBoho(proj14.length);
+
+    let proj15 = response.filter(checkProj15);
+    function checkProj15(v) {
+      return v == "SOFITEL WAFI MALL ";
+    }
+    setSofitel(proj15.length);
+
+    let proj16 = response.filter(checkProj16);
+    function checkProj16(v) {
+      return v == "ADANI GROUP ";
+    }
+    setAdanigroup(proj16.length);
+
+    let proj17 = response.filter(checkProj17);
+    function checkProj17(v) {
+      return v == "NIKKI BEACH  ";
+    }
+
+    let proj18 = response.filter(checkProj18);
+    function checkProj18(v) {
+      return v == "RAFFLE WAFI MALL ";
+    }
+
+    console.log(proj1);
   };
 
   useEffect(() => {
     getProjects();
-    projattendence();
+    projAttendence();
   }, []);
 
   // Actual revenue Servhub
-  let price1 = Math.round(5828 / daysInMonth);
-  let servRev = serv * price1;
+  let price1 = Math.round(5828 / daysInMonth) / 3;
+  let servRev = Math.round(serv * price1);
 
   // Actual revenue Firstmotors
-  let price2 = Math.round(14070 / daysInMonth);
-  let firstRev = first * price2;
+  let price2 = Math.round(14070 / daysInMonth) / 4;
+  let firstRev = Math.round(first * price2);
 
   // Actual revenue Avani hotels
-  let price3 = Math.round(14070 / daysInMonth);
-  let avaniRev = avani * price3;
+  let price3 = Math.round(14070 / daysInMonth) / 2;
+  let avaniRev = Math.round(avani * price3);
 
   // Actual revenue Roda hotels
-  let price4 = Math.round(56524 / daysInMonth);
-  let rodaRev = roda * price4;
+  let price4 = Math.round(56524 / daysInMonth) / 23;
+  let rodaRev = Math.round(roda * price4);
 
   // Actual revenue Fairmount hotels
-  let price5 = Math.round(18228 / daysInMonth);
-  let fairRev = fair * price5;
+  let price5 = Math.round(18228 / daysInMonth) / 5;
+  let fairRev = Math.round(fair * price5);
 
   // Actual revenue 25Hrs hotel
-  let price6 = Math.round(65100 / daysInMonth);
-  let twentyfiveRev = twentyfive * price6;
+  let price6 = Math.round(65100 / daysInMonth) / 18;
+  let twentyfiveRev = Math.round(twentyfive * price6);
 
   // Actual revenue Me dubai
-  let price7 = Math.round(21000 / daysInMonth);
-  let meRev = me * price7;
+  let price7 = Math.round(21000 / daysInMonth) / 7;
+  let meRev = Math.round(me * price7);
 
   // Actual revenue Grand mellinium business bay
-  let price8 = Math.round(40950 / daysInMonth);
-  let grandmelRev = grandMel * price8;
+  let price8 = Math.round(40950 / daysInMonth) / 15;
+  let grandmelRev = Math.round(grandMel * price8);
 
   // Actual revenue Grand mellinium tecom
-  let price9 = Math.round(40950 / daysInMonth);
-  let grandTecRev = grandTec * price9;
+  let price9 = Math.round(40950 / daysInMonth) / 15;
+  let grandTecRev = Math.round(grandTec * price9);
 
   // Actual revenue Hilton
-  let price10 = Math.round(40950 / daysInMonth);
-  let hiltonRev = hilton * price10;
+  let price10 = Math.round(40950 / daysInMonth) / 4;
+  let hiltonRev = Math.round(hilton * price10);
 
   // Actual revenue Nuran
-  let price11 = Math.round(19751 / daysInMonth);
-  let nuranRev = nuran * price11;
+  let price11 = Math.round(19751 / daysInMonth) / 6;
+  let nuranRev = Math.round(nuran * price11);
 
   // Actual revenue Avani Ibn Batuta
-  let price12 = Math.round(13000 / daysInMonth);
-  let avaniIbnRev = avaniIbn * price12;
+  let price12 = Math.round(13000 / daysInMonth) / 5;
+  let avaniIbnRev = Math.round(avaniIbn * price12);
 
   // Actual revenue Black platinum
-  let price13 = Math.round(3000 / daysInMonth);
-  let blackRev = black * price13;
+  let price13 = Math.round(3000 / daysInMonth) / 1;
+  let blackRev = Math.round(black * price13);
 
   // Actual revenue Boho cafe
-  let price14 = Math.round(2900 / daysInMonth);
-  let bohoRev = boho * price14;
+  let price14 = Math.round(2900 / daysInMonth) / 1;
+  let bohoRev = Math.round(boho * price14);
 
   // Actual revenue Sofitel
-  let price15 = Math.round(6800 / daysInMonth);
-  let sofitelRev = sofitel * price15;
+  let price15 = Math.round(6800 / daysInMonth) / 2;
+  let sofitelRev = Math.round(sofitel * price15);
 
   // Actual revenue Adani
-  let price16 = Math.round(2800 / daysInMonth);
-  let AdaniRev = adanigroup * price16;
+  let price16 = Math.round(2800 / daysInMonth) / 1;
+  let AdaniRev = Math.round(adanigroup * price16);
 
   // Actual revenu Nikki beach
   let price17 = Math.round(2800 / daysInMonth);
-  let nikkiRev = nikki * price17;
+  let nikkiRev = Math.round(nikki * price17);
 
   // Actual revenue Raffle wafi mall
   let price18 = Math.round(2800 / daysInMonth);
-  let raffleRev = raffle * price18;
+  let raffleRev = Math.round(raffle * price18);
 
   return (
     <div>
@@ -281,7 +294,7 @@ export default function ProjectDash() {
                   present={serv}
                   cvalue='5828'
                   arevenue={servRev}
-                  difference={price1 - servRev}
+                  difference={servRev - Math.round(5828 / daysInMonth)}
                 />
                 <Cards
                   image='../images/higi-icon.png'
@@ -291,7 +304,7 @@ export default function ProjectDash() {
                   present={first}
                   cvalue='14070'
                   arevenue={firstRev}
-                  difference={price2 - firstRev}
+                  difference={firstRev - Math.round(14070 / daysInMonth)}
                 />
                 <Cards
                   image='../images/higi-icon.png'
@@ -301,7 +314,7 @@ export default function ProjectDash() {
                   present={avani}
                   cvalue='7000'
                   arevenue={avaniRev}
-                  difference={price3 - avaniRev}
+                  difference={avaniRev - Math.round(7000 / daysInMonth)}
                 />
                 <Cards
                   image='../images/higi-icon.png'
@@ -311,7 +324,7 @@ export default function ProjectDash() {
                   present={roda}
                   cvalue='56524'
                   arevenue={rodaRev}
-                  difference={price4 - rodaRev}
+                  difference={rodaRev - Math.round(56524 / daysInMonth)}
                 />
                 <Cards
                   image='../images/higi-icon.png'
@@ -321,7 +334,7 @@ export default function ProjectDash() {
                   present={fair}
                   cvalue='18228'
                   arevenue={fairRev}
-                  difference={price5 - fairRev}
+                  difference={fairRev - Math.round(18228 / daysInMonth)}
                 />
                 <Cards
                   image='../images/higi-icon.png'
@@ -331,7 +344,7 @@ export default function ProjectDash() {
                   present={twentyfive}
                   cvalue='65100'
                   arevenue={twentyfiveRev}
-                  difference={price6 - twentyfiveRev}
+                  difference={twentyfiveRev - Math.round(65100 / daysInMonth)}
                 />
                 <Cards
                   image='../images/higi-icon.png'
@@ -341,7 +354,7 @@ export default function ProjectDash() {
                   present={me}
                   cvalue='21000'
                   arevenue={meRev}
-                  difference={price7 - meRev}
+                  difference={meRev - Math.round(21000 / daysInMonth)}
                 />
                 <Cards
                   image='../images/higi-icon.png'
@@ -351,7 +364,7 @@ export default function ProjectDash() {
                   present={grandMel}
                   cvalue='40950'
                   arevenue={grandmelRev}
-                  difference={price8 - grandmelRev}
+                  difference={grandmelRev - Math.round(40950 / daysInMonth)}
                 />
                 <Cards
                   image='../images/higi-icon.png'
@@ -361,7 +374,7 @@ export default function ProjectDash() {
                   present={grandTec}
                   cvalue='40950'
                   arevenue={grandTecRev}
-                  difference={price9 - grandTecRev}
+                  difference={grandTecRev - Math.round(40950 / daysInMonth)}
                 />
                 <Cards
                   image='../images/higi-icon.png'
@@ -371,7 +384,7 @@ export default function ProjectDash() {
                   present={hilton}
                   cvalue='13860'
                   arevenue={hiltonRev}
-                  difference={price10 - hiltonRev}
+                  difference={hiltonRev - Math.round(13860 / daysInMonth)}
                 />
                 <Cards
                   image='../images/higi-icon.png'
@@ -381,7 +394,7 @@ export default function ProjectDash() {
                   present={nuran}
                   cvalue='19751'
                   arevenue={nuranRev}
-                  difference={price11 - nuranRev}
+                  difference={nuranRev - Math.round(19751 / daysInMonth)}
                 />
                 <Cards
                   image='../images/higi-icon.png'
@@ -391,7 +404,7 @@ export default function ProjectDash() {
                   present={avaniIbn}
                   cvalue='13000'
                   arevenue={avaniIbnRev}
-                  difference={price12 - avaniIbnRev}
+                  difference={avaniIbnRev - Math.round(13000 / daysInMonth)}
                 />
                 <Cards
                   image='../images/higi-icon.png'
@@ -401,7 +414,7 @@ export default function ProjectDash() {
                   present={black}
                   cvalue='3000'
                   arevenue={blackRev}
-                  difference={price13 - blackRev}
+                  difference={blackRev - Math.round(3000 / daysInMonth)}
                 />
                 <Cards
                   image='../images/higi-icon.png'
@@ -411,7 +424,7 @@ export default function ProjectDash() {
                   present={boho}
                   cvalue='2900'
                   arevenue={bohoRev}
-                  difference={price14 - bohoRev}
+                  difference={bohoRev - Math.round(2900 / daysInMonth)}
                 />
                 <Cards
                   image='../images/higi-icon.png'
@@ -421,7 +434,7 @@ export default function ProjectDash() {
                   present={sofitel}
                   cvalue='6800'
                   arevenue={sofitelRev}
-                  difference={price15 - sofitelRev}
+                  difference={sofitelRev - Math.round(6800 / daysInMonth)}
                 />
                 <Cards
                   image='../images/higi-icon.png'
@@ -431,7 +444,7 @@ export default function ProjectDash() {
                   present={adanigroup}
                   cvalue='2800'
                   arevenue={AdaniRev}
-                  difference={price16 - AdaniRev}
+                  difference={AdaniRev - Math.round(2800 / daysInMonth)}
                 />
               </div>
             </div>

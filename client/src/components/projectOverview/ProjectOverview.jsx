@@ -30,129 +30,140 @@ function ProjectOverview() {
   const [roda, setRoda] = useState();
   const [serv, setServ] = useState();
   const [sofitel, setSofitel] = useState();
+  const [morn, setMorn] = useState([]);
+  const [eve, setEve] = useState([]);
 
   // Fetch projectwise attendence details
   const projattendence = async () => {
     try {
       const data = await Axios.get(
-        "http://185.243.76.148:3001/api/attendence-projectwise"
+        "http://localhost:3001/api/attendence-morning-projectwise"
       );
-      const response = data.data;
-      let proj1 = response.filter((v) => {
-        return v == "SERVE-HUB";
-      });
-      setServ(proj1.length);
-
-      let proj2 = response.filter(checkProj2);
-      function checkProj2(v) {
-        return v == "F1RST MOTORS";
-      }
-      setFirst(proj2.length);
-
-      let proj3 = response.filter(checkProj3);
-      function checkProj3(v) {
-        return v == "AVANI HOTEL";
-      }
-      setAvani(proj3.length);
-
-      let proj4 = response.filter(checkProj4);
-      function checkProj4(v) {
-        return v == "RODA AMWAJ JBR";
-      }
-      setRoda(proj4.length);
-
-      let proj5 = response.filter(checkProj5);
-      function checkProj5(v) {
-        return v == "FAIRMONT HOTEL THE PALM";
-      }
-      setFair(proj5.length);
-
-      let proj6 = response.filter(checkProj6);
-      function checkProj6(v) {
-        return v == "25HRS HOTEL WTC";
-      }
-      setTwentyfive(proj6.length);
-
-      let proj7 = response.filter(checkProj7);
-      function checkProj7(v) {
-        return v == "ME DUBAI HOTEL BUSINESS BAY";
-      }
-
-      setMe(proj7.length);
-
-      let proj8 = response.filter(checkProj8);
-      function checkProj8(v) {
-        return v == "GRAND MILLENIUM BUSINESS BAY";
-      }
-
-      setGrandMel(proj8);
-
-      let proj9 = response.filter(checkProj9);
-      function checkProj9(v) {
-        return v == "GRAND MILLENIUM TECOM";
-      }
-
-      setGrandTec(proj9);
-
-      let proj10 = response.filter(checkProj10);
-      function checkProj10(v) {
-        return v == "HILTON JBR";
-      }
-
-      setHilton(proj10);
-
-      let proj11 = response.filter(checkProj11);
-      function checkProj11(v) {
-        return v == "NURAN DUBAI MARINA";
-      }
-
-      setNuran(proj11);
-
-      let proj12 = response.filter(checkProj12);
-      function checkProj12(v) {
-        return v == "AVANI IBN BATUTTA";
-      }
-
-      setAvaniIbn(proj12);
-
-      let proj13 = response.filter(checkProj13);
-      function checkProj13(v) {
-        return v == "BLACK PLATINUM SALOON FINANCIAL CENTER";
-      }
-
-      setBlack(proj13);
-
-      let proj14 = response.filter(checkProj14);
-      function checkProj14(v) {
-        return v == "BOHO CAFÉ FINANCIAL CENTER";
-      }
-      setBoho(proj14);
-
-      let proj15 = response.filter(checkProj15);
-      function checkProj15(v) {
-        return v == "SOFITEL WAFI MALL";
-      }
-      setSofitel(proj15);
-
-      let proj16 = response.filter(checkProj16);
-      function checkProj16(v) {
-        return v == "ADANI GROUP";
-      }
-      setAdanigroup(proj16);
-
-      let proj17 = response.filter(checkProj17);
-      function checkProj17(v) {
-        return v == "NIKKI BEACH";
-      }
-
-      let proj18 = response.filter(checkProj18);
-      function checkProj18(v) {
-        return v == "RAFFLE WAFI MALL";
-      }
-
-      console.log(proj1);
+      setMorn(data.data);
     } catch (e) {
       console.log(e);
+    }
+
+    try {
+      const d = await Axios.get(
+        "http://localhost:3001/api/attendence-evening-projectwise"
+      );
+
+      setEve(d.data);
+    } catch (e) {
+      console.log(e);
+    }
+    let response = morn.concat(eve);
+    let proj1 = response.filter((v) => {
+      return v == "SERVE-HUB ";
+    });
+    setServ(proj1.length);
+
+    let proj2 = response.filter(checkProj2);
+    function checkProj2(v) {
+      return v == "F1RST MOTORS  ";
+    }
+    setFirst(proj2.length);
+
+    let proj3 = response.filter(checkProj3);
+    function checkProj3(v) {
+      return v == "AVANI HOTEL";
+    }
+    setAvani(proj3.length);
+
+    let proj4 = response.filter(checkProj4);
+    function checkProj4(v) {
+      return v == "RODA AMWAJ JBR ";
+    }
+    setRoda(proj4.length);
+
+    let proj5 = response.filter(checkProj5);
+    function checkProj5(v) {
+      return v == "FAIRMONT HOTEL THE PALM ";
+    }
+    setFair(proj5.length);
+
+    let proj6 = response.filter(checkProj6);
+    function checkProj6(v) {
+      return v == "25HRS HOTEL WTC ";
+    }
+    setTwentyfive(proj6.length);
+
+    let proj7 = response.filter(checkProj7);
+    function checkProj7(v) {
+      return v == "ME DUBAI HOTEL BUSINESS BAY ";
+    }
+
+    setMe(proj7.length);
+
+    let proj8 = response.filter(checkProj8);
+    function checkProj8(v) {
+      return v == "GRAND MILLENIUM BUSINESS BAY ";
+    }
+
+    setGrandMel(proj8.length);
+
+    let proj9 = response.filter(checkProj9);
+    function checkProj9(v) {
+      return v == "GRAND MILLENIUM TECOM ";
+    }
+
+    setGrandTec(proj9.length);
+
+    let proj10 = response.filter(checkProj10);
+    function checkProj10(v) {
+      return v == "HILTON JBR ";
+    }
+
+    setHilton(proj10.length);
+
+    let proj11 = response.filter(checkProj11);
+    function checkProj11(v) {
+      return v == "NURAN DUBAI MARINA  ";
+    }
+
+    setNuran(proj11.length);
+
+    let proj12 = response.filter(checkProj12);
+    function checkProj12(v) {
+      return v == "AVANI IBN BATUTTA ";
+    }
+
+    setAvaniIbn(proj12.length);
+
+    let proj13 = response.filter(checkProj13);
+    function checkProj13(v) {
+      return v == "BLACK PLATINUM SALOON FINANCIAL CENTER ";
+    }
+
+    setBlack(proj13.length);
+
+    let proj14 = response.filter(checkProj14);
+    function checkProj14(v) {
+      return v == "BOHO CAFÉ FINANCIAL CENTER ";
+    }
+    setBoho(proj14.length);
+
+    let proj15 = response.filter(checkProj15);
+    function checkProj15(v) {
+      return v == "SOFITEL WAFI MALL ";
+    }
+    setSofitel(proj15.length);
+
+    let proj16 = response.filter(checkProj16);
+    function checkProj16(v) {
+      return v == "ADANI GROUP ";
+    }
+    setAdanigroup(proj16.length);
+
+    let proj17 = response.filter(checkProj17);
+    function checkProj17(v) {
+      return v == "NIKKI BEACH  ";
+    }
+
+    let proj18 = response.filter(checkProj18);
+    function checkProj18(v) {
+      return v == "RAFFLE WAFI MALL ";
     }
   };
 
@@ -162,7 +173,7 @@ function ProjectOverview() {
   const data1 = [
     { name: "SERVE-HUB", value: serv },
     { name: "F1RST MOTORS", value: first },
-    { name: "AVANI HOTEL", value: avani },
+    // { name: "AVANI HOTEL", value: avani },
     { name: "RODA AMWAJ", value: roda },
     { name: "FAIRMONT HOTEL", value: fair },
     { name: "25HRS HOTEL", value: twentyfive },
@@ -248,7 +259,6 @@ function ProjectOverview() {
               cy='50%'
               labelLine={true}
               label={renderCustomizedLabel}
-              c
               outerRadius={140}
               fill='#8884d8'
               dataKey='value'

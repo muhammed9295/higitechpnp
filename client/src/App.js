@@ -14,6 +14,8 @@ import Login from "./pages/login/Login";
 import Protected from "./pages/protectedRoute/Protected";
 import ShiftChanger from "./pages/Staffs/shiftChanger/ShiftChanger";
 import ProjectDash from "./pages/projectdashboard/ProjectDash";
+import MorningAttendence from "./pages/Staffs/staffAttendance/MorningAttendence";
+import EveningAttendence from "./pages/Staffs/staffAttendance/EveningAttendence";
 
 function App() {
   return (
@@ -46,6 +48,15 @@ function App() {
             path='/staff-attendance'
             element={<Protected Comp={StaffAttendance} />}
           />
+          <Route
+            path='/staff-attendance-morning'
+            element={<Protected Comp={MorningAttendence} />}
+          />
+          <Route
+            path='/staff-attendance-evening'
+            element={<Protected Comp={EveningAttendence} />}
+          />
+
           <Route
             path='/add-new-projects'
             element={<Protected Comp={AddProjects} />}

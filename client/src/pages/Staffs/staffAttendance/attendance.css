@@ -6,6 +6,13 @@
   /* justify-content: space-around; */
 }
 
+.attendance-wrapper2 {
+  width: 100%;
+  height: calc(100vh - 80px);
+  display: flex;
+  flex-direction: column;
+}
+
 .attendence-title {
   display: flex;
   align-items: center;
@@ -17,4 +24,22 @@
 
 .table {
   background-color: white;
+}
+
+.butn {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: white;
+  color: rgb(129, 129, 129);
+  font-size: 22px;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.butn:hover {
+  background-color: rgb(216, 216, 216);
+  color: white;
 }

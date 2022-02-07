@@ -1,5 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { TextField, Button, Box, Paper, Select, MenuItem } from "@mui/material";
+import {
+  TextField,
+  Button,
+  Box,
+  Paper,
+  Select,
+  MenuItem,
+  InputLabel,
+} from "@mui/material";
 import {
   BarChart,
   Bar,
@@ -20,72 +28,389 @@ function AttendenceOverview() {
   const [leaveCount, setLeaveCount] = useState();
   const [phCount, setPhCount] = useState();
   const [poCount, setPoCount] = useState();
-  const [time, setTime] = useState("Today");
+  const [time, setTime] = useState("none");
+  const [morn, setMorn] = useState([]);
+  const [eve, setEve] = useState([]);
+  const [yestMorn, setYestMorn] = useState([]);
+  const [yestEve, setYestEve] = useState([]);
+  const [curMorn, setCurMorn] = useState([]);
+  const [curEve, setCurEve] = useState([]);
+  const [lastMorn, setLastMorn] = useState([]);
+  const [lastEve, setLastEve] = useState([]);
+  const [allMorn, setAllMorn] = useState([]);
+  const [allEve, setAllEve] = useState([]);
 
-  // Fetch all status
-  const getStatus = async () => {
+  // Fetch all attendence data
+
+  const getToday = async () => {
     try {
       const data = await Axios.get(
-        "http://185.243.76.148:3001/api/attendence-overview"
+        "http://localhost:3001/api/attendence-overview-morning"
       );
-      let result = data.data;
-
-      const present = result.filter(checkPresent);
-      const absent = result.filter(checkAbsent);
-      const sick = result.filter(checkSick);
-      const dayoff = result.filter(checkDayoff);
-      const leave = result.filter(checkLeave);
-      const ph = result.filter(checkPh);
-      const po = result.filter(checkPo);
-
-      function checkPresent(d) {
-        return d == "present";
-      }
-
-      setPresentCount(present.length);
-
-      function checkAbsent(d) {
-        return d == "absent";
-      }
-
-      setAbsentCount(absent.length);
-
-      function checkSick(d) {
-        return d == "sick";
-      }
-
-      setSickCount(sick.length);
-
-      function checkDayoff(d) {
-        return d == "dayoff";
-      }
-
-      setDayoffCount(dayoff.length);
-
-      function checkLeave(d) {
-        return d == "leave";
-      }
-
-      setLeaveCount(leave.length);
-
-      function checkPh(d) {
-        return d == "ph";
-      }
-
-      setPhCount(ph.length);
-
-      function checkPo(d) {
-        return d == "po";
-      }
-
-      setPoCount(po.length);
+      setMorn(data.data);
     } catch (e) {
       console.log(e);
     }
+
+    try {
+      const d = await Axios.get(
+        "http://localhost:3001/api/attendence-overview-evening"
+      );
+
+      setEve(d.data);
+    } catch (e) {
+      console.log(e);
+    }
+
+    let array = morn.concat(eve);
+    const present = array.filter(checkPresent);
+    const absent = array.filter(checkAbsent);
+    const sick = array.filter(checkSick);
+    const dayoff = array.filter(checkDayoff);
+    const leave = array.filter(checkLeave);
+    const ph = array.filter(checkPh);
+    const po = array.filter(checkPo);
+
+    function checkPresent(d) {
+      return d == "present";
+    }
+
+    setPresentCount(present.length);
+
+    function checkAbsent(d) {
+      return d == "absent";
+    }
+
+    setAbsentCount(absent.length);
+
+    function checkSick(d) {
+      return d == "sick";
+    }
+
+    setSickCount(sick.length);
+
+    function checkDayoff(d) {
+      return d == "dayoff";
+    }
+
+    setDayoffCount(dayoff.length);
+
+    function checkLeave(d) {
+      return d == "leave";
+    }
+
+    setLeaveCount(leave.length);
+
+    function checkPh(d) {
+      return d == "ph";
+    }
+
+    setPhCount(ph.length);
+
+    function checkPo(d) {
+      return d == "po";
+    }
+
+    setPoCount(po.length);
+  };
+
+  // Fetch yesterday attendence data
+
+  const getYesterday = async () => {
+    try {
+      const data = await Axios.get(
+        "http://localhost:3001/api/attendence-morning-yesterday"
+      );
+      setYestMorn(data.data);
+    } catch (e) {
+      console.log(e);
+    }
+
+    try {
+      const d = await Axios.get(
+        "http://localhost:3001/api/attendence-evening-yesterday"
+      );
+
+      setYestEve(d.data);
+    } catch (e) {
+      console.log(e);
+    }
+
+    let array = yestMorn.concat(yestEve);
+    const present = array.filter(checkPresent);
+    const absent = array.filter(checkAbsent);
+    const sick = array.filter(checkSick);
+    const dayoff = array.filter(checkDayoff);
+    const leave = array.filter(checkLeave);
+    const ph = array.filter(checkPh);
+    const po = array.filter(checkPo);
+
+    function checkPresent(d) {
+      return d == "present";
+    }
+
+    setPresentCount(present.length);
+
+    function checkAbsent(d) {
+      return d == "absent";
+    }
+
+    setAbsentCount(absent.length);
+
+    function checkSick(d) {
+      return d == "sick";
+    }
+
+    setSickCount(sick.length);
+
+    function checkDayoff(d) {
+      return d == "dayoff";
+    }
+
+    setDayoffCount(dayoff.length);
+
+    function checkLeave(d) {
+      return d == "leave";
+    }
+
+    setLeaveCount(leave.length);
+
+    function checkPh(d) {
+      return d == "ph";
+    }
+
+    setPhCount(ph.length);
+
+    function checkPo(d) {
+      return d == "po";
+    }
+
+    setPoCount(po.length);
+  };
+
+  // Fetch this month attendence data
+  const getThismonth = async () => {
+    try {
+      const data = await Axios.get(
+        "http://localhost:3001/api/attendence-morning-thismonth"
+      );
+      setCurMorn(data.data);
+    } catch (e) {
+      console.log(e);
+    }
+
+    try {
+      const d = await Axios.get(
+        "http://localhost:3001/api/attendence-evening-thismonth"
+      );
+
+      setCurEve(d.data);
+    } catch (e) {
+      console.log(e);
+    }
+
+    let array = curMorn.concat(curEve);
+    const present = array.filter(checkPresent);
+    const absent = array.filter(checkAbsent);
+    const sick = array.filter(checkSick);
+    const dayoff = array.filter(checkDayoff);
+    const leave = array.filter(checkLeave);
+    const ph = array.filter(checkPh);
+    const po = array.filter(checkPo);
+
+    function checkPresent(d) {
+      return d == "present";
+    }
+
+    setPresentCount(present.length);
+
+    function checkAbsent(d) {
+      return d == "absent";
+    }
+
+    setAbsentCount(absent.length);
+
+    function checkSick(d) {
+      return d == "sick";
+    }
+
+    setSickCount(sick.length);
+
+    function checkDayoff(d) {
+      return d == "dayoff";
+    }
+
+    setDayoffCount(dayoff.length);
+
+    function checkLeave(d) {
+      return d == "leave";
+    }
+
+    setLeaveCount(leave.length);
+
+    function checkPh(d) {
+      return d == "ph";
+    }
+
+    setPhCount(ph.length);
+
+    function checkPo(d) {
+      return d == "po";
+    }
+
+    setPoCount(po.length);
+  };
+
+  //Fetch last month attendence data
+  const getLastmonth = async () => {
+    try {
+      const data = await Axios.get(
+        "http://localhost:3001/api/attendence-morning-lastmonth"
+      );
+      setLastMorn(data.data);
+    } catch (e) {
+      console.log(e);
+    }
+
+    try {
+      const d = await Axios.get(
+        "http://localhost:3001/api/attendence-evening-lastmonth"
+      );
+
+      setLastEve(d.data);
+    } catch (e) {
+      console.log(e);
+    }
+
+    let array = lastMorn.concat(lastEve);
+    const present = array.filter(checkPresent);
+    const absent = array.filter(checkAbsent);
+    const sick = array.filter(checkSick);
+    const dayoff = array.filter(checkDayoff);
+    const leave = array.filter(checkLeave);
+    const ph = array.filter(checkPh);
+    const po = array.filter(checkPo);
+
+    function checkPresent(d) {
+      return d == "present";
+    }
+
+    setPresentCount(present.length);
+
+    function checkAbsent(d) {
+      return d == "absent";
+    }
+
+    setAbsentCount(absent.length);
+
+    function checkSick(d) {
+      return d == "sick";
+    }
+
+    setSickCount(sick.length);
+
+    function checkDayoff(d) {
+      return d == "dayoff";
+    }
+
+    setDayoffCount(dayoff.length);
+
+    function checkLeave(d) {
+      return d == "leave";
+    }
+
+    setLeaveCount(leave.length);
+
+    function checkPh(d) {
+      return d == "ph";
+    }
+
+    setPhCount(ph.length);
+
+    function checkPo(d) {
+      return d == "po";
+    }
+
+    setPoCount(po.length);
+  };
+
+  //   Fetch all attendence
+  const getAllmonth = async () => {
+    try {
+      const data = await Axios.get(
+        "http://localhost:3001/api/attendence-morning-all"
+      );
+      setAllMorn(data.data);
+    } catch (e) {
+      console.log(e);
+    }
+
+    try {
+      const d = await Axios.get(
+        "http://localhost:3001/api/attendence-evening-all"
+      );
+
+      setAllEve(d.data);
+    } catch (e) {
+      console.log(e);
+    }
+
+    let array = allMorn.concat(allEve);
+    const present = array.filter(checkPresent);
+    const absent = array.filter(checkAbsent);
+    const sick = array.filter(checkSick);
+    const dayoff = array.filter(checkDayoff);
+    const leave = array.filter(checkLeave);
+    const ph = array.filter(checkPh);
+    const po = array.filter(checkPo);
+
+    function checkPresent(d) {
+      return d == "present";
+    }
+
+    setPresentCount(present.length);
+
+    function checkAbsent(d) {
+      return d == "absent";
+    }
+
+    setAbsentCount(absent.length);
+
+    function checkSick(d) {
+      return d == "sick";
+    }
+
+    setSickCount(sick.length);
+
+    function checkDayoff(d) {
+      return d == "dayoff";
+    }
+
+    setDayoffCount(dayoff.length);
+
+    function checkLeave(d) {
+      return d == "leave";
+    }
+
+    setLeaveCount(leave.length);
+
+    function checkPh(d) {
+      return d == "ph";
+    }
+
+    setPhCount(ph.length);
+
+    function checkPo(d) {
+      return d == "po";
+    }
+
+    setPoCount(po.length);
   };
 
   useEffect(() => {
-    getStatus();
+    // getStatusMorn();
+    // getStatusEve();
+    getToday();
   }, []);
 
   const color = [
@@ -135,254 +460,6 @@ function AttendenceOverview() {
     setTime(e.target.value);
   };
 
-  // Fetch yesterday attendence
-  const getYesterday = async () => {
-    try {
-      const data = await Axios.get(
-        "http://185.243.76.148:3001/api/attendence-yesterday"
-      );
-      let result = data.data;
-
-      const present = result.filter(checkPresent);
-      const absent = result.filter(checkAbsent);
-      const sick = result.filter(checkSick);
-      const dayoff = result.filter(checkDayoff);
-      const leave = result.filter(checkLeave);
-      const ph = result.filter(checkPh);
-      const po = result.filter(checkPo);
-
-      function checkPresent(d) {
-        return d == "present";
-      }
-
-      setPresentCount(present.length);
-
-      function checkAbsent(d) {
-        return d == "absent";
-      }
-
-      setAbsentCount(absent.length);
-
-      function checkSick(d) {
-        return d == "sick";
-      }
-
-      setSickCount(sick.length);
-
-      function checkDayoff(d) {
-        return d == "dayoff";
-      }
-
-      setDayoffCount(dayoff.length);
-
-      function checkLeave(d) {
-        return d == "leave";
-      }
-
-      setLeaveCount(leave.length);
-
-      function checkPh(d) {
-        return d == "ph";
-      }
-
-      setPhCount(ph.length);
-
-      function checkPo(d) {
-        return d == "po";
-      }
-
-      setPoCount(po.length);
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
-  // Fetch this month attendence
-  const getThismonth = async () => {
-    try {
-      const data = await Axios.get(
-        "http://185.243.76.148:3001/api/attendence-thismonth"
-      );
-      let result = data.data;
-
-      const present = result.filter(checkPresent);
-      const absent = result.filter(checkAbsent);
-      const sick = result.filter(checkSick);
-      const dayoff = result.filter(checkDayoff);
-      const leave = result.filter(checkLeave);
-      const ph = result.filter(checkPh);
-      const po = result.filter(checkPo);
-
-      function checkPresent(d) {
-        return d == "present";
-      }
-
-      setPresentCount(present.length);
-
-      function checkAbsent(d) {
-        return d == "absent";
-      }
-
-      setAbsentCount(absent.length);
-
-      function checkSick(d) {
-        return d == "sick";
-      }
-
-      setSickCount(sick.length);
-
-      function checkDayoff(d) {
-        return d == "dayoff";
-      }
-
-      setDayoffCount(dayoff.length);
-
-      function checkLeave(d) {
-        return d == "leave";
-      }
-
-      setLeaveCount(leave.length);
-
-      function checkPh(d) {
-        return d == "ph";
-      }
-
-      setPhCount(ph.length);
-
-      function checkPo(d) {
-        return d == "po";
-      }
-
-      setPoCount(po.length);
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
-  //   Fetch last month attendence
-  const getLastmonth = async () => {
-    try {
-      const data = await Axios.get(
-        "http://185.243.76.148:3001/api/attendence-lastmonth"
-      );
-      let result = data.data;
-
-      const present = result.filter(checkPresent);
-      const absent = result.filter(checkAbsent);
-      const sick = result.filter(checkSick);
-      const dayoff = result.filter(checkDayoff);
-      const leave = result.filter(checkLeave);
-      const ph = result.filter(checkPh);
-      const po = result.filter(checkPo);
-
-      function checkPresent(d) {
-        return d == "present";
-      }
-
-      setPresentCount(present.length);
-
-      function checkAbsent(d) {
-        return d == "absent";
-      }
-
-      setAbsentCount(absent.length);
-
-      function checkSick(d) {
-        return d == "sick";
-      }
-
-      setSickCount(sick.length);
-
-      function checkDayoff(d) {
-        return d == "dayoff";
-      }
-
-      setDayoffCount(dayoff.length);
-
-      function checkLeave(d) {
-        return d == "leave";
-      }
-
-      setLeaveCount(leave.length);
-
-      function checkPh(d) {
-        return d == "ph";
-      }
-
-      setPhCount(ph.length);
-
-      function checkPo(d) {
-        return d == "po";
-      }
-
-      setPoCount(po.length);
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
-  //   Fetch all attendence
-  const getAllmonth = async () => {
-    try {
-      const data = await Axios.get(
-        "http://185.243.76.148:3001/api/attendence-all"
-      );
-      let result = data.data;
-
-      const present = result.filter(checkPresent);
-      const absent = result.filter(checkAbsent);
-      const sick = result.filter(checkSick);
-      const dayoff = result.filter(checkDayoff);
-      const leave = result.filter(checkLeave);
-      const ph = result.filter(checkPh);
-      const po = result.filter(checkPo);
-
-      function checkPresent(d) {
-        return d == "present";
-      }
-
-      setPresentCount(present.length);
-
-      function checkAbsent(d) {
-        return d == "absent";
-      }
-
-      setAbsentCount(absent.length);
-
-      function checkSick(d) {
-        return d == "sick";
-      }
-
-      setSickCount(sick.length);
-
-      function checkDayoff(d) {
-        return d == "dayoff";
-      }
-
-      setDayoffCount(dayoff.length);
-
-      function checkLeave(d) {
-        return d == "leave";
-      }
-
-      setLeaveCount(leave.length);
-
-      function checkPh(d) {
-        return d == "ph";
-      }
-
-      setPhCount(ph.length);
-
-      function checkPo(d) {
-        return d == "po";
-      }
-
-      setPoCount(po.length);
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
   return (
     <div className='attendenceov'>
       <Paper
@@ -404,11 +481,15 @@ function AttendenceOverview() {
             size='small'
             sx={{ fontSize: "14px" }}
             onChange={handleChange}
+            label='Age'
           >
+            <MenuItem value={"none"} disabled={true}>
+              <em>Please select</em>
+            </MenuItem>
             <MenuItem
               value={"Today"}
               sx={{ fontSize: "14px" }}
-              onClick={getStatus}
+              onClick={getToday}
             >
               Today
             </MenuItem>

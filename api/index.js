@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 const dotenv = require("dotenv");
 const req = require("express/lib/request");
 const { sign } = require("jsonwebtoken");
+const nodemailer = require("nodemailer");
 
 // environment instance
 dotenv.config({ path: "./.env" });
@@ -105,10 +106,16 @@ app.get("/api/attendence-overview", (req, res) => {
     }
   );
 });
-// Attendence Overview - Yesterday
-app.get("/api/attendence-yesterday", (req, res, next) => {
+
+// Attendence Overview Morning - Today
+app.get("/api/attendence-overview-morning", (req, res) => {
+  const current = new Date();
+  const today = `${current.getFullYear()}-${
+    current.getMonth() + 1
+  }-${current.getDate()}`;
+
   db.query(
-    "SELECT * FROM staff_attendence WHERE DATE(time_stamp)= CURDATE() - 1",
+    "SELECT * FROM morning_attendence WHERE DATE(time_stamp)= CURDATE()",
     // [today],
     (err, result) => {
       if (err) {
@@ -123,10 +130,15 @@ app.get("/api/attendence-yesterday", (req, res, next) => {
   );
 });
 
-// Attendence Overview - This month
-app.get("/api/attendence-thismonth", (req, res, next) => {
+// Attendence Overview Evening - Today
+app.get("/api/attendence-overview-evening", (req, res) => {
+  const current = new Date();
+  const today = `${current.getFullYear()}-${
+    current.getMonth() + 1
+  }-${current.getDate()}`;
+
   db.query(
-    "SELECT * FROM staff_attendence WHERE YEAR(time_stamp)= YEAR(CURRENT_DATE()) AND MONTH(time_stamp) = MONTH(CURRENT_DATE())",
+    "SELECT * FROM evening_attendence WHERE DATE(time_stamp)= CURDATE()",
     // [today],
     (err, result) => {
       if (err) {
@@ -141,10 +153,10 @@ app.get("/api/attendence-thismonth", (req, res, next) => {
   );
 });
 
-// Attendence Overview - Last month
-app.get("/api/attendence-lastmonth", (req, res, next) => {
+// Attendence Overview Morning - Yesterday
+app.get("/api/attendence-morning-yesterday", (req, res, next) => {
   db.query(
-    "SELECT * FROM staff_attendence WHERE YEAR(time_stamp)= YEAR(CURRENT_DATE() - INTERVAL 1 MONTH) AND MONTH(time_stamp) = MONTH(CURRENT_DATE() - INTERVAL 1 MONTH)",
+    "SELECT * FROM morning_attendence WHERE DATE(time_stamp)= CURDATE() - 1",
     // [today],
     (err, result) => {
       if (err) {
@@ -159,10 +171,118 @@ app.get("/api/attendence-lastmonth", (req, res, next) => {
   );
 });
 
-// Attendence Overview - All
-app.get("/api/attendence-all", (req, res, next) => {
+// Attendence Overview Evening - Yesterday
+app.get("/api/attendence-evening-yesterday", (req, res, next) => {
   db.query(
-    "SELECT * FROM staff_attendence",
+    "SELECT * FROM evening_attendence WHERE DATE(time_stamp)= CURDATE() - 1",
+    // [today],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        let status = result.map(function (i) {
+          return i.status;
+        });
+        res.send(status);
+      }
+    }
+  );
+});
+
+// Attendence Overview Morning - This month
+app.get("/api/attendence-morning-thismonth", (req, res, next) => {
+  db.query(
+    "SELECT * FROM morning_attendence WHERE YEAR(time_stamp)= YEAR(CURRENT_DATE()) AND MONTH(time_stamp) = MONTH(CURRENT_DATE())",
+    // [today],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        let status = result.map(function (i) {
+          return i.status;
+        });
+        res.send(status);
+      }
+    }
+  );
+});
+
+// Attendence Overview Evening - This month
+app.get("/api/attendence-evening-thismonth", (req, res, next) => {
+  db.query(
+    "SELECT * FROM evening_attendence WHERE YEAR(time_stamp)= YEAR(CURRENT_DATE()) AND MONTH(time_stamp) = MONTH(CURRENT_DATE())",
+    // [today],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        let status = result.map(function (i) {
+          return i.status;
+        });
+        res.send(status);
+      }
+    }
+  );
+});
+
+// Attendence Overview Morning - Last month
+app.get("/api/attendence-morning-lastmonth", (req, res, next) => {
+  db.query(
+    "SELECT * FROM morning_attendence WHERE YEAR(time_stamp)= YEAR(CURRENT_DATE() - INTERVAL 1 MONTH) AND MONTH(time_stamp) = MONTH(CURRENT_DATE() - INTERVAL 1 MONTH)",
+    // [today],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        let status = result.map(function (i) {
+          return i.status;
+        });
+        res.send(status);
+      }
+    }
+  );
+});
+
+// Attendence Overview Evening- Last month
+app.get("/api/attendence-evening-lastmonth", (req, res, next) => {
+  db.query(
+    "SELECT * FROM evening_attendence WHERE YEAR(time_stamp)= YEAR(CURRENT_DATE() - INTERVAL 1 MONTH) AND MONTH(time_stamp) = MONTH(CURRENT_DATE() - INTERVAL 1 MONTH)",
+    // [today],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        let status = result.map(function (i) {
+          return i.status;
+        });
+        res.send(status);
+      }
+    }
+  );
+});
+
+// Attendence Overview Morning - All
+app.get("/api/attendence-morning-all", (req, res, next) => {
+  db.query(
+    "SELECT * FROM morning_attendence",
+    // [today],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        let status = result.map(function (i) {
+          return i.status;
+        });
+        res.send(status);
+      }
+    }
+  );
+});
+
+// Attendence Overview Evening - All
+app.get("/api/attendence-evening-all", (req, res, next) => {
+  db.query(
+    "SELECT * FROM evening_attendence",
     // [today],
     (err, result) => {
       if (err) {
@@ -325,12 +445,12 @@ app.post("/api/attendance", (req, res, next) => {
   // let attendanceData = null;
   // if (items && items.length && items.length > 0) {
   //   attendanceData = items[0].date;
-  //   res.send("already submitted");
+  //   // res.write("already submitted");
   // }
 
   // if (attendanceData) {
   // db.query(
-  //   "SELECT id FROM higitech_PnP.staff_attendence where date=?",
+  //   "SELECT id FROM higitech_pnp.staff_attendence WHERE date=?",
   //   [attendanceData],
   //   (err, result) => {
   //     if (result && result.length == 0) {
@@ -357,10 +477,392 @@ app.post("/api/attendance", (req, res, next) => {
       }
     }
   );
+  //       }
   //     }
-  //   }
-  // );
+  //   );
   // }
+});
+
+// Post daily attendence - morning
+app.post("/api/attendance-morning", (req, res, next) => {
+  let items = !req.body ? [] : req.body;
+  let attendanceData = null;
+  if (items && items.length && items.length > 0) {
+    attendanceData = items[0].date;
+    // res.write("already submitted");
+  }
+
+  if (attendanceData) {
+    db.query(
+      "SELECT id FROM higitech_pnp.morning_attendence WHERE date=?",
+      [attendanceData],
+      (err, result) => {
+        if (result && result.length == 0) {
+          db.query(
+            "INSERT INTO morning_attendence (id, name, designation, project, date, status, shift) VALUES ?",
+            [
+              items.map((item) => [
+                item.id,
+                item.name,
+                item.designation,
+                item.project,
+                item.date,
+                item.status,
+                item.shift,
+              ]),
+            ],
+            (err, result) => {
+              //   console.log(err);
+              //   console.log(result);
+              if (err) {
+                console.log(err);
+              } else {
+                res.send("success");
+              }
+            }
+          );
+        }
+      }
+    );
+  }
+});
+
+// Post daily attendence - evening
+app.post("/api/attendance-evening", (req, res, next) => {
+  let items = !req.body ? [] : req.body;
+  let attendanceData1 = null;
+  if (items && items.length && items.length > 0) {
+    attendanceData1 = items[0].date;
+    // res.write("already submitted");
+  }
+
+  if (attendanceData1) {
+    db.query(
+      "SELECT id FROM higitech_pnp.evening_attendence WHERE date=?",
+      [attendanceData1],
+      (err, result) => {
+        if (result && result.length == 0) {
+          db.query(
+            "INSERT INTO evening_attendence (id, name, designation, project, date, status, shift) VALUES ?",
+            [
+              items.map((item) => [
+                item.id,
+                item.name,
+                item.designation,
+                item.project,
+                item.date,
+                item.status,
+                item.shift,
+              ]),
+            ],
+            (err, result) => {
+              //   console.log(err);
+              //   console.log(result);
+              if (err) {
+                console.log(err);
+              } else {
+                res.send("success");
+              }
+            }
+          );
+        }
+      }
+    );
+  }
+});
+
+// Get daily attendence - Morning & Evening
+app.get("/api/morning-attendence", (req, res) => {
+  const current = new Date();
+  const today = `${current.getFullYear()}-${
+    current.getMonth() + 1
+  }-${current.getDate()}`;
+
+  db.query(
+    "SELECT * FROM morning_attendence WHERE DATE(time_stamp)= CURDATE() - 1",
+    // [today],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        let status = result.map(function (i) {
+          return i.status;
+        });
+        res.send(status);
+      }
+    }
+  );
+});
+
+app.get("/api/evening-attendence", (req, res) => {
+  const current = new Date();
+  const today = `${current.getFullYear()}-${
+    current.getMonth() + 1
+  }-${current.getDate()}`;
+
+  db.query(
+    "SELECT * FROM evening_attendence WHERE DATE(time_stamp)= CURDATE() - 1",
+    // [today],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        let status = result.map(function (i) {
+          return i.status;
+        });
+        res.send(status);
+      }
+    }
+  );
+});
+
+// Send email
+app.post("/api/mail", cors(), async (req, res) => {
+  let items = req.body;
+
+  let present = items.filter(checkPresent);
+  function checkPresent(v) {
+    return v == "present";
+  }
+
+  let absent = items.filter(checkAbsent);
+  function checkAbsent(v) {
+    return v == "absent";
+  }
+
+  let sick = items.filter(checkSick);
+  function checkSick(v) {
+    return v == "sick";
+  }
+
+  let dayoff = items.filter(checkDayoff);
+  function checkDayoff(v) {
+    return v == "dayoff";
+  }
+
+  let leave = items.filter(checkLeave);
+  function checkLeave(v) {
+    return v == "leave";
+  }
+
+  let ph = items.filter(checkPh);
+  function checkPh(v) {
+    return v == "ph";
+  }
+
+  let po = items.filter(checkPo);
+  function checkPo(v) {
+    return v == "po";
+  }
+
+  const current = new Date();
+  const yesterday = `${current.getDate() - 1}-${
+    current.getMonth() + 1
+  }-${current.getFullYear()}`;
+
+  const transport = nodemailer.createTransport({
+    host: process.env.MAIL_HOST,
+    port: process.env.MAIL_PORT,
+    auth: {
+      user: process.env.MAIL_USER,
+      pass: process.env.MAIL_PASS,
+    },
+  });
+
+  await transport.sendMail({
+    from: process.env.MAIL_FROM,
+    to: "muhammed@higitech.me",
+    subject: "Attendence Summary",
+    html: `<div style="display: flex; align-items: center; justify-content: center">
+    <div
+      style="
+        width: 1000px;
+        height: 500px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 10px;
+      "
+    >
+      <div>
+        <h3 style="font-family: Verdana, Geneva, Tahoma, sans-serif">
+          Attendence Summary as of ${yesterday}
+        </h3>
+      </div>
+      <div style="width: 80%">
+        <table
+          style="
+            border-collapse: collapse;
+            width: 100%;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+          "
+        >
+          <tr>
+            <th
+              style="
+                border: 1px solid #aaaaaa;
+                text-align: center;
+                padding: 8px;
+              "
+            >
+              Status
+            </th>
+            <th
+              style="
+                border: 1px solid #aaaaaa;
+                text-align: center;
+                padding: 8px;
+              "
+            >
+              Count
+            </th>
+          </tr>
+          <tr>
+            <td
+              style="
+                border: 1px solid #aaaaaa;
+                text-align: center;
+                padding: 8px;
+              "
+            >
+              Present
+            </td>
+            <td
+              style="
+                border: 1px solid #aaaaaa;
+                text-align: center;
+                padding: 8px;
+              "
+            >
+              ${present.length}
+            </td>
+          </tr>
+          <tr>
+            <td
+              style="
+                border: 1px solid #aaaaaa;
+                text-align: center;
+                padding: 8px;
+              "
+            >
+              Absent
+            </td>
+            <td
+              style="
+                border: 1px solid #aaaaaa;
+                text-align: center;
+                padding: 8px;
+              "
+            >
+              ${absent.length}
+            </td>
+          </tr>
+          <tr>
+            <td
+              style="
+                border: 1px solid #aaaaaa;
+                text-align: center;
+                padding: 8px;
+              "
+            >
+              Sick
+            </td>
+            <td
+              style="
+                border: 1px solid #aaaaaa;
+                text-align: center;
+                padding: 8px;
+              "
+            >
+              ${sick.length}
+            </td>
+          </tr>
+          <tr>
+            <td
+              style="
+                border: 1px solid #aaaaaa;
+                text-align: center;
+                padding: 8px;
+              "
+            >
+              Dayoff
+            </td>
+            <td
+              style="
+                border: 1px solid #aaaaaa;
+                text-align: center;
+                padding: 8px;
+              "
+            >
+              ${dayoff.length}
+            </td>
+          </tr>
+          <tr>
+            <td
+              style="
+                border: 1px solid #aaaaaa;
+                text-align: center;
+                padding: 8px;
+              "
+            >
+              Leave
+            </td>
+            <td
+              style="
+                border: 1px solid #aaaaaa;
+                text-align: center;
+                padding: 8px;
+              "
+            >
+              ${leave.length}
+            </td>
+          </tr>
+          <tr>
+            <td
+              style="
+                border: 1px solid #aaaaaa;
+                text-align: center;
+                padding: 8px;
+              "
+            >
+              PH
+            </td>
+            <td
+              style="
+                border: 1px solid #aaaaaa;
+                text-align: center;
+                padding: 8px;
+              "
+            >
+              ${ph.length}
+            </td>
+          </tr>
+          <tr>
+            <td
+              style="
+                border: 1px solid #aaaaaa;
+                text-align: center;
+                padding: 8px;
+              "
+            >
+              PO
+            </td>
+            <td
+              style="
+                border: 1px solid #aaaaaa;
+                text-align: center;
+                padding: 8px;
+              "
+            >
+              ${po.length}
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>`,
+  });
+  console.log(present.length);
 });
 
 // Post project details
@@ -440,14 +942,36 @@ app.get("/api/get-projects", (req, res, next) => {
 });
 
 // Get projectwise attendence details
-app.get("/api/attendence-projectwise", (req, res) => {
+app.get("/api/attendence-morning-projectwise", (req, res) => {
   const current = new Date();
   const today = `${current.getFullYear()}-${
     current.getMonth() + 1
   }-${current.getDate()}`;
 
   db.query(
-    "SELECT * FROM staff_attendence WHERE DATE(time_stamp)= CURDATE() AND status='present'",
+    "SELECT * FROM morning_attendence WHERE DATE(time_stamp)= CURDATE() AND status='present'",
+    // [today],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        let status = result.map(function (i) {
+          return i.project;
+        });
+        res.send(status);
+      }
+    }
+  );
+});
+
+app.get("/api/attendence-evening-projectwise", (req, res) => {
+  const current = new Date();
+  const today = `${current.getFullYear()}-${
+    current.getMonth() + 1
+  }-${current.getDate()}`;
+
+  db.query(
+    "SELECT * FROM evening_attendence WHERE DATE(time_stamp)= CURDATE() AND status='present'",
     // [today],
     (err, result) => {
       if (err) {

@@ -16,16 +16,13 @@ import {
   Box,
 } from "@mui/material";
 import Axios from "axios";
+import { ChevronLeft } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 
-function StaffAttendance() {
-  // attendance entry
+function EveningAttendence() {
   const [staffList, setStaffList] = useState([]);
   const [search, setSearch] = useState("");
-  const [mor, setMorn] = useState([]);
-  const [eve, setEve] = useState([]);
-
-  const style = { marginTop: "20px" };
+  const [status, setStatus] = useState(true);
 
   // Current date
   const current = new Date();
@@ -39,98 +36,56 @@ function StaffAttendance() {
   const fullDate = `${day}-${month}-${year}`;
   console.log(current.getDate() + 1);
 
-  // All staff details shown in table
-
-  const staffDetails = async () => {
+  // Fetched Evening shift
+  const eveningShift = async () => {
     try {
-      const data = await Axios.get("http://localhost:3001/api/staff-details");
+      const data = await Axios.get("http://localhost:3001/api/staff-evening");
       if (data && data.data) {
         data.data.forEach((element) => {
-          if (!element.status) {
-            element.status = "present";
-          }
           if (!element.date) {
             element.date = date;
           }
-          // if (!element.shift) {
-          //   element.shift = "morning";
-          // }
+          if (!element.status) {
+            element.status = "present";
+          }
         });
       }
       setStaffList(data.data);
+      setStatus(false);
     } catch (e) {
       console.log(e);
     }
   };
 
   useEffect(() => {
-    staffDetails();
-    getAttMorning();
-    getAttEvening();
-
-    // handleAddFields();
+    eveningShift();
   }, []);
 
-  // Get morning attendence data
-  const getAttMorning = async () => {
-    try {
-      const d = await Axios.get("http://localhost:3001/api/morning-attendence");
-
-      setMorn(d.data);
-    } catch (e) {
-      console.log(e);
+  function handleChange(e, index) {
+    let localList = [...staffList];
+    let { name, value } = e.target;
+    debugger;
+    if (localList[index]) {
+      localList[index][name] = value;
+      setStaffList(localList);
     }
-  };
+  }
 
-  // Get evening attendence data
-  const getAttEvening = async () => {
-    try {
-      const d = await Axios.get("http://localhost:3001/api/evening-attendence");
-
-      setEve(d.data);
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
-  let array = mor.concat(eve);
-
-  const sendEmail = () => {
-    Axios.post("http://localhost:3001/api/mail", array)
-      .then((response) => {
-        console.log(response.data);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  };
-
-  // Adding Staff attendence
-  const addAttendence = (e) => {
-    Axios.post("http://localhost:3001/api/attendance", staffList)
+  // Adding Staff attendence evening
+  const addAttendenceEvening = (e) => {
+    Axios.post("http://localhost:3001/api/attendance-evening", staffList)
       .then((response) => {
         alert(response.data);
         console.log(response.data);
         if (response.data == "success") {
           e.preventDefault();
+          setStatus(true);
         }
       })
       .catch(function (error) {
         console.log(error);
       });
   };
-
-  function handleChange(e, index) {
-    let localList = [...staffList];
-    let { name, value } = e.target;
-    debugger;
-    if (localList[index] === -1) {
-      localList[index][name] = value;
-      setStaffList(localList);
-    }
-  }
-
-  // Table Data
 
   return (
     <div>
@@ -149,8 +104,13 @@ function StaffAttendance() {
           }}
         >
           <div className='attendance-container container'>
-            <div className='attendance-wrapper' style={style}>
+            <div className='attendance-wrapper'>
               <div className='attendence-title'>
+                <Link to='/staff-attendance'>
+                  <button className='butn'>
+                    <ChevronLeft />
+                  </button>
+                </Link>
                 <TextField
                   type='text'
                   size='small'
@@ -159,46 +119,16 @@ function StaffAttendance() {
                     setSearch(e.target.value);
                   }}
                 />
+                <h3>Evening</h3>
                 <h2>{fullDate}</h2>
 
-                <Link to='/staff-attendance-morning'>
-                  <Button
-                    sx={{
-                      backgroundColor: "blue",
-                      padding: "8px 20px",
-                      width: "100%",
-                    }}
-                    variant='contained'
-                    // onClick={morningShift}
-                  >
-                    Morning
-                  </Button>
-                </Link>
-
-                <Link to='/staff-attendance-evening'>
-                  <Button
-                    sx={{
-                      backgroundColor: "blue",
-                      padding: "8px 20px",
-                      width: "100%",
-                    }}
-                    variant='contained'
-                    // onClick={eveningShift}
-                  >
-                    Evening
-                  </Button>
-                </Link>
-
                 <Button
-                  sx={{
-                    backgroundColor: "red",
-
-                    padding: "8px 20px",
-                  }}
+                  sx={{ backgroundColor: "red", margin: "30px", width: "10%" }}
                   variant='contained'
-                  onClick={sendEmail}
+                  disabled={status}
+                  onClick={addAttendenceEvening}
                 >
-                  Send report
+                  Submit
                 </Button>
               </div>
               <TableContainer component={Paper}>
@@ -292,4 +222,4 @@ function StaffAttendance() {
   );
 }
 
-export default StaffAttendance;
+export default EveningAttendence;
