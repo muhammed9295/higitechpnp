@@ -177,11 +177,13 @@ export default function ProjectDash() {
     function checkProj17(v) {
       return v == "NIKKI BEACH  ";
     }
+    setNikki(proj17.length);
 
     let proj18 = response.filter(checkProj18);
     function checkProj18(v) {
       return v == "RAFFLE WAFI MALL ";
     }
+    setRaffle(proj18.length);
 
     console.log(proj1);
   };
@@ -204,11 +206,11 @@ export default function ProjectDash() {
   let avaniRev = Math.round(avani * price3);
 
   // Actual revenue Roda hotels
-  let price4 = Math.round(56524 / daysInMonth) / 23;
+  let price4 = Math.round(56524 / daysInMonth) / 24;
   let rodaRev = Math.round(roda * price4);
 
   // Actual revenue Fairmount hotels
-  let price5 = Math.round(18228 / daysInMonth) / 5;
+  let price5 = Math.round(18228 / daysInMonth) / 3;
   let fairRev = Math.round(fair * price5);
 
   // Actual revenue 25Hrs hotel
@@ -220,23 +222,23 @@ export default function ProjectDash() {
   let meRev = Math.round(me * price7);
 
   // Actual revenue Grand mellinium business bay
-  let price8 = Math.round(40950 / daysInMonth) / 15;
+  let price8 = Math.round(40950 / daysInMonth) / 14;
   let grandmelRev = Math.round(grandMel * price8);
 
   // Actual revenue Grand mellinium tecom
-  let price9 = Math.round(40950 / daysInMonth) / 15;
+  let price9 = Math.round(40950 / daysInMonth) / 20;
   let grandTecRev = Math.round(grandTec * price9);
 
   // Actual revenue Hilton
-  let price10 = Math.round(40950 / daysInMonth) / 4;
+  let price10 = Math.round(40950 / daysInMonth) / 5;
   let hiltonRev = Math.round(hilton * price10);
 
   // Actual revenue Nuran
-  let price11 = Math.round(19751 / daysInMonth) / 6;
+  let price11 = Math.round(19751 / daysInMonth) / 7;
   let nuranRev = Math.round(nuran * price11);
 
   // Actual revenue Avani Ibn Batuta
-  let price12 = Math.round(13000 / daysInMonth) / 5;
+  let price12 = Math.round(13000 / daysInMonth) / 7;
   let avaniIbnRev = Math.round(avaniIbn * price12);
 
   // Actual revenue Black platinum
@@ -256,11 +258,11 @@ export default function ProjectDash() {
   let AdaniRev = Math.round(adanigroup * price16);
 
   // Actual revenu Nikki beach
-  let price17 = Math.round(2800 / daysInMonth);
+  let price17 = Math.round(2800 / daysInMonth) / 10;
   let nikkiRev = Math.round(nikki * price17);
 
   // Actual revenue Raffle wafi mall
-  let price18 = Math.round(2800 / daysInMonth);
+  let price18 = Math.round(2800 / daysInMonth) / 1;
   let raffleRev = Math.round(raffle * price18);
 
   return (
@@ -320,7 +322,7 @@ export default function ProjectDash() {
                   image='../images/higi-icon.png'
                   title='RODA AMWAJ JBR '
                   revenue={Math.round(56524 / daysInMonth)}
-                  manpower='23'
+                  manpower='24'
                   present={roda}
                   cvalue='56524'
                   arevenue={rodaRev}
@@ -330,7 +332,7 @@ export default function ProjectDash() {
                   image='../images/higi-icon.png'
                   title='FAIRMONT HOTEL THE PALM '
                   revenue={Math.round(18228 / daysInMonth)}
-                  manpower='5'
+                  manpower='3'
                   present={fair}
                   cvalue='18228'
                   arevenue={fairRev}
@@ -360,7 +362,7 @@ export default function ProjectDash() {
                   image='../images/higi-icon.png'
                   title='GRAND MILLENIUM BUSINESS BAY'
                   revenue={Math.round(40950 / daysInMonth)}
-                  manpower='15'
+                  manpower='14'
                   present={grandMel}
                   cvalue='40950'
                   arevenue={grandmelRev}
@@ -370,7 +372,7 @@ export default function ProjectDash() {
                   image='../images/higi-icon.png'
                   title='GRAND MILLENIUM TECOM '
                   revenue={Math.round(40950 / daysInMonth)}
-                  manpower='15'
+                  manpower='20'
                   present={grandTec}
                   cvalue='40950'
                   arevenue={grandTecRev}
@@ -380,7 +382,7 @@ export default function ProjectDash() {
                   image='../images/higi-icon.png'
                   title='HILTON JBR'
                   revenue={Math.round(13860 / daysInMonth)}
-                  manpower='4'
+                  manpower='5'
                   present={hilton}
                   cvalue='13860'
                   arevenue={hiltonRev}
@@ -390,7 +392,7 @@ export default function ProjectDash() {
                   image='../images/higi-icon.png'
                   title='NURAN DUBAI MARINA'
                   revenue={Math.round(19751 / daysInMonth)}
-                  manpower='6'
+                  manpower='7'
                   present={nuran}
                   cvalue='19751'
                   arevenue={nuranRev}
@@ -400,7 +402,7 @@ export default function ProjectDash() {
                   image='../images/higi-icon.png'
                   title='AVANI IBN BATUTTA'
                   revenue={Math.round(13000 / daysInMonth)}
-                  manpower='5'
+                  manpower='7'
                   present={avaniIbn}
                   cvalue='13000'
                   arevenue={avaniIbnRev}
@@ -445,6 +447,26 @@ export default function ProjectDash() {
                   cvalue='2800'
                   arevenue={AdaniRev}
                   difference={AdaniRev - Math.round(2800 / daysInMonth)}
+                />
+                <Cards
+                  image='../images/higi-icon.png'
+                  title='NIKKI BEACH'
+                  revenue={Math.round(31800 / daysInMonth)}
+                  manpower='10'
+                  present={nikki}
+                  cvalue='31800'
+                  arevenue={nikkiRev}
+                  difference={nikkiRev - Math.round(31800 / daysInMonth)}
+                />
+                <Cards
+                  image='../images/higi-icon.png'
+                  title='RAFFLE WAFI MALL'
+                  revenue={Math.round(37800 / daysInMonth)}
+                  manpower='1'
+                  present={raffle}
+                  cvalue='37800'
+                  arevenue={raffleRev}
+                  difference={raffleRev - Math.round(37800 / daysInMonth)}
                 />
               </div>
             </div>
