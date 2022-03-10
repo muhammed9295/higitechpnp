@@ -16,6 +16,8 @@ import {
   Box,
 } from "@mui/material";
 import Axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { ChevronLeft } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 
@@ -77,20 +79,33 @@ function MorningAttendence() {
   }
 
   // Adding Staff attendence morning
-  const addAttendenceMorning = (e) => {
+  const addAttendenceMorning = () => {
     Axios.post("http://185.243.76.148:3001/api/attendance-morning", staffList)
       .then((response) => {
-        alert(response.data);
-        console.log(response.data);
-        if (response.data == "success") {
-          e.preventDefault();
+        if (response.data == "Success") {
           setStatus(true);
         }
+        toast.success(response.data);
       })
       .catch(function (error) {
         console.log(error);
       });
   };
+
+  console.log(staffList);
+
+  // Send email
+  const testemail = () => {
+    Axios.post("http://185.243.76.148:3001/api/mail-morning", staffList)
+      .then((response) => {
+        console.log(response);
+        alert("Attendence Summary Sent");
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
   return (
     <div>
       <Box sx={{ display: "flex" }}>
@@ -130,10 +145,24 @@ function MorningAttendence() {
                   sx={{ backgroundColor: "red", margin: "30px", width: "10%" }}
                   variant='contained'
                   disabled={status}
-                  onClick={addAttendenceMorning}
+                  onClick={() => {
+                    addAttendenceMorning();
+                    testemail();
+                  }}
                 >
                   Submit
                 </Button>
+                <ToastContainer
+                  position='top-center'
+                  autoClose={3000}
+                  hideProgressBar={true}
+                  newestOnTop={false}
+                  closeOnClick
+                  rtl={false}
+                  pauseOnFocusLoss
+                  draggable
+                  pauseOnHover
+                />
               </div>
               <TableContainer component={Paper}>
                 <Table sx={{ minWidth: 650 }} aria-label='simple table'>
@@ -183,7 +212,7 @@ function MorningAttendence() {
                       })
                       .map((staff, i) => {
                         return (
-                          <TableRow key={staff.id}>
+                          <TableRow key={i}>
                             <TableCell align='center'>{staff.id}</TableCell>
                             <TableCell align='center'>{staff.name}</TableCell>
                             <TableCell align='center'>

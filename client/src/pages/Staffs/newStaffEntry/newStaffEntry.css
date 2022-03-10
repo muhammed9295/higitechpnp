@@ -1,20 +1,23 @@
+/* .main1 {
+  height: calc(100vh + 200px);
+} */
+
 .newStaff-wrapper {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  align-items: center;
   width: 80%;
-  height: 80vh;
+  height: 100%;
   background-color: white;
   border-radius: 10px;
   padding: 20px;
 }
 
-.text-field1 {
+/* .text-field1 {
   width: 100%;
   display: flex;
   justify-content: space-between;
-}
+} */
 
 .text-field2 {
   width: 100%;

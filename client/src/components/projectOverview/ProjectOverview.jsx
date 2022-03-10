@@ -53,8 +53,9 @@ function ProjectOverview() {
     } catch (e) {
       console.log(e);
     }
-    let response = morn.concat(eve);
-    let proj1 = response.filter((v) => {
+    const response = [morn.concat(eve)];
+
+    let proj1 = [morn.concat(eve)].filter((v) => {
       return v == "SERVE-HUB ";
     });
     setServ(proj1.length);

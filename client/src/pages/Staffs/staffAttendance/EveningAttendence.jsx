@@ -16,6 +16,8 @@ import {
   Box,
 } from "@mui/material";
 import Axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { ChevronLeft } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 
@@ -39,7 +41,9 @@ function EveningAttendence() {
   // Fetched Evening shift
   const eveningShift = async () => {
     try {
-      const data = await Axios.get("http://localhost:3001/api/staff-evening");
+      const data = await Axios.get(
+        "http://185.243.76.148:3001/api/staff-evening"
+      );
       if (data && data.data) {
         data.data.forEach((element) => {
           if (!element.date) {
@@ -73,14 +77,24 @@ function EveningAttendence() {
 
   // Adding Staff attendence evening
   const addAttendenceEvening = (e) => {
-    Axios.post("http://localhost:3001/api/attendance-evening", staffList)
+    Axios.post("http://185.243.76.148:3001/api/attendance-evening", staffList)
       .then((response) => {
-        alert(response.data);
-        console.log(response.data);
-        if (response.data == "success") {
-          e.preventDefault();
+        if (response.data == "Success") {
           setStatus(true);
         }
+        toast.success(response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
+  // Send email
+  const testemail = () => {
+    Axios.post("http://185.243.76.148:3001/api/mail-evening", staffList)
+      .then((response) => {
+        console.log(response);
+        alert("Attendence Summary Sent");
       })
       .catch(function (error) {
         console.log(error);
@@ -126,10 +140,24 @@ function EveningAttendence() {
                   sx={{ backgroundColor: "red", margin: "30px", width: "10%" }}
                   variant='contained'
                   disabled={status}
-                  onClick={addAttendenceEvening}
+                  onClick={() => {
+                    addAttendenceEvening();
+                    testemail();
+                  }}
                 >
                   Submit
                 </Button>
+                <ToastContainer
+                  position='top-center'
+                  autoClose={3000}
+                  hideProgressBar={true}
+                  newestOnTop={false}
+                  closeOnClick
+                  rtl={false}
+                  pauseOnFocusLoss
+                  draggable
+                  pauseOnHover
+                />
               </div>
               <TableContainer component={Paper}>
                 <Table sx={{ minWidth: 650 }} aria-label='simple table'>

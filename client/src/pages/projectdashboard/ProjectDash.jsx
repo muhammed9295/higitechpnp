@@ -27,8 +27,9 @@ export default function ProjectDash() {
   const [roda, setRoda] = useState();
   const [serv, setServ] = useState();
   const [sofitel, setSofitel] = useState();
-  const [morn, setMorn] = useState([]);
-  const [eve, setEve] = useState([]);
+  const [mornData, setMornData] = useState([]);
+  const [eveData, setEveData] = useState([]);
+  const [res, setRes] = useState([]);
 
   // Number of days in a month
   let dt = new Date();
@@ -54,27 +55,29 @@ export default function ProjectDash() {
   const projAttendence = async () => {
     try {
       const data = await Axios.get(
-        "http://185.243.76.148:3001/api/attendence-overview-morning"
+        "http://185.243.76.148:3001/api/attendence-morning-projectwise"
       );
-      setMorn(data.data);
+      setMornData(data.data);
     } catch (e) {
       console.log(e);
     }
 
     try {
       const d = await Axios.get(
-        "http://185.243.76.148:3001/api/attendence-overview-evening"
+        "http://185.243.76.148:3001/api/attendence-evening-projectwise"
       );
 
-      setEve(d.data);
+      setEveData(d.data);
     } catch (e) {
       console.log(e);
     }
-    let response = morn.concat(eve);
-    let proj1 = response.filter((v) => {
+    let response = [mornData.concat(eveData)];
+
+    let proj1 = mornData.concat(eveData).filter((v) => {
       return v == "SERVE-HUB ";
     });
     setServ(proj1.length);
+    console.log(serv);
 
     let proj2 = response.filter(checkProj2);
     function checkProj2(v) {
@@ -188,9 +191,29 @@ export default function ProjectDash() {
     console.log(proj1);
   };
 
+  // TEST
+  // const testing = async () => {
+  //   try {
+  //     const data = await Axios.get(
+  //       "http://localhost:3001/api/attendence-morning-projectwise"
+  //     );
+  //     setRes(data.data);
+  //     console.log(data.data);
+  //     let proj1 = data.data.filter((v) => {
+  //       return v == "SERVE-HUB ";
+  //     });
+  //     setServ(proj1.length);
+  //   } catch (e) {
+  //     console.log(e);
+  //   }
+  // };
+
+  // console.log(serv);
+
   useEffect(() => {
     getProjects();
     projAttendence();
+    // testing();
   }, []);
 
   // Actual revenue Servhub

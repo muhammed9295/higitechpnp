@@ -489,7 +489,7 @@ app.post("/api/attendance-morning", (req, res, next) => {
   let attendanceData = null;
   if (items && items.length && items.length > 0) {
     attendanceData = items[0].date;
-    // res.write("already submitted");
+    res.write("Already submitted");
   }
 
   if (attendanceData) {
@@ -517,7 +517,7 @@ app.post("/api/attendance-morning", (req, res, next) => {
               if (err) {
                 console.log(err);
               } else {
-                res.send("success");
+                res.write("Success");
               }
             }
           );
@@ -525,15 +525,17 @@ app.post("/api/attendance-morning", (req, res, next) => {
       }
     );
   }
+  res.end();
 });
 
 // Post daily attendence - evening
-app.post("/api/attendance-evening", (req, res, next) => {
+app.post("/api/attendance-evening", (req, res) => {
   let items = !req.body ? [] : req.body;
+
   let attendanceData1 = null;
   if (items && items.length && items.length > 0) {
     attendanceData1 = items[0].date;
-    // res.write("already submitted");
+    res.write("Already submitted");
   }
 
   if (attendanceData1) {
@@ -561,7 +563,7 @@ app.post("/api/attendance-evening", (req, res, next) => {
               if (err) {
                 console.log(err);
               } else {
-                res.send("success");
+                res.write("Success");
               }
             }
           );
@@ -569,6 +571,7 @@ app.post("/api/attendance-evening", (req, res, next) => {
       }
     );
   }
+  res.end();
 });
 
 // Get daily attendence - Morning & Evening
@@ -579,7 +582,7 @@ app.get("/api/morning-attendence", (req, res) => {
   }-${current.getDate()}`;
 
   db.query(
-    "SELECT * FROM morning_attendence WHERE DATE(time_stamp)= CURDATE() - 1",
+    "SELECT * FROM morning_attendence WHERE DATE(time_stamp)= CURDATE()",
     // [today],
     (err, result) => {
       if (err) {
@@ -601,7 +604,7 @@ app.get("/api/evening-attendence", (req, res) => {
   }-${current.getDate()}`;
 
   db.query(
-    "SELECT * FROM evening_attendence WHERE DATE(time_stamp)= CURDATE() - 1",
+    "SELECT * FROM evening_attendence WHERE DATE(time_stamp)= CURDATE()",
     // [today],
     (err, result) => {
       if (err) {
@@ -616,47 +619,47 @@ app.get("/api/evening-attendence", (req, res) => {
   );
 });
 
-// Send email
-app.post("/api/mail", cors(), async (req, res) => {
-  let items = req.body;
+// Send email-morning
+app.post("/api/mail-morning", cors(), async (req, res) => {
+  let d = req.body;
+  const state = d.map((data) => data.status);
 
-  let present = items.filter(checkPresent);
+  let present = state.filter(checkPresent);
   function checkPresent(v) {
     return v == "present";
   }
 
-  let absent = items.filter(checkAbsent);
+  let absent = state.filter(checkAbsent);
   function checkAbsent(v) {
     return v == "absent";
   }
 
-  let sick = items.filter(checkSick);
+  let sick = state.filter(checkSick);
   function checkSick(v) {
     return v == "sick";
   }
 
-  let dayoff = items.filter(checkDayoff);
+  let dayoff = state.filter(checkDayoff);
   function checkDayoff(v) {
     return v == "dayoff";
   }
 
-  let leave = items.filter(checkLeave);
+  let leave = state.filter(checkLeave);
   function checkLeave(v) {
     return v == "leave";
   }
 
-  let ph = items.filter(checkPh);
+  let ph = state.filter(checkPh);
   function checkPh(v) {
     return v == "ph";
   }
 
-  let po = items.filter(checkPo);
+  let po = state.filter(checkPo);
   function checkPo(v) {
     return v == "po";
   }
-
   const current = new Date();
-  const yesterday = `${current.getDate() - 1}-${
+  const yesterday = `${current.getDate()}-${
     current.getMonth() + 1
   }-${current.getFullYear()}`;
 
@@ -672,6 +675,7 @@ app.post("/api/mail", cors(), async (req, res) => {
   await transport.sendMail({
     from: process.env.MAIL_FROM,
     to: "shahzad@higitech-me.com,farhan.nasir@higitech-me.com,operationsss@higitech-me.com,abdul.wahab@higitech-me.com,muhammed@higitech.me",
+    // to: "muhammed@higitech.me",
     subject: "Attendence Summary",
     html: `<div style="display: flex; align-items: center; justify-content: center">
     <div
@@ -686,7 +690,7 @@ app.post("/api/mail", cors(), async (req, res) => {
     >
       <div>
         <h3 style="font-family: Verdana, Geneva, Tahoma, sans-serif">
-          Attendence Summary as of ${yesterday}
+          Attendence Summary as of ${yesterday} - Morning
         </h3>
       </div>
       <div style="width: 80%">
@@ -862,7 +866,255 @@ app.post("/api/mail", cors(), async (req, res) => {
     </div>
   </div>`,
   });
-  console.log(present.length);
+});
+
+// Send email-evening
+app.post("/api/mail-evening", cors(), async (req, res) => {
+  let d = req.body;
+  const state = d.map((data) => data.status);
+
+  let present = state.filter(checkPresent);
+  function checkPresent(v) {
+    return v == "present";
+  }
+
+  let absent = state.filter(checkAbsent);
+  function checkAbsent(v) {
+    return v == "absent";
+  }
+
+  let sick = state.filter(checkSick);
+  function checkSick(v) {
+    return v == "sick";
+  }
+
+  let dayoff = state.filter(checkDayoff);
+  function checkDayoff(v) {
+    return v == "dayoff";
+  }
+
+  let leave = state.filter(checkLeave);
+  function checkLeave(v) {
+    return v == "leave";
+  }
+
+  let ph = state.filter(checkPh);
+  function checkPh(v) {
+    return v == "ph";
+  }
+
+  let po = state.filter(checkPo);
+  function checkPo(v) {
+    return v == "po";
+  }
+  const current = new Date();
+  const yesterday = `${current.getDate()}-${
+    current.getMonth() + 1
+  }-${current.getFullYear()}`;
+
+  const transport = nodemailer.createTransport({
+    host: process.env.MAIL_HOST,
+    port: process.env.MAIL_PORT,
+    auth: {
+      user: process.env.MAIL_USER,
+      pass: process.env.MAIL_PASS,
+    },
+  });
+
+  await transport.sendMail({
+    from: process.env.MAIL_FROM,
+    to: "shahzad@higitech-me.com,farhan.nasir@higitech-me.com,operationsss@higitech-me.com,abdul.wahab@higitech-me.com,muhammed@higitech.me",
+    // to: "muhammed@higitech.me",
+    subject: "Attendence Summary",
+    html: `<div style="display: flex; align-items: center; justify-content: center">
+    <div
+      style="
+        width: 1000px;
+        height: 500px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 10px;
+      "
+    >
+      <div>
+        <h3 style="font-family: Verdana, Geneva, Tahoma, sans-serif">
+          Attendence Summary as of ${yesterday} - Evening
+        </h3>
+      </div>
+      <div style="width: 80%">
+        <table
+          style="
+            border-collapse: collapse;
+            width: 100%;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+          "
+        >
+          <tr>
+            <th
+              style="
+                border: 1px solid #aaaaaa;
+                text-align: center;
+                padding: 8px;
+              "
+            >
+              Status
+            </th>
+            <th
+              style="
+                border: 1px solid #aaaaaa;
+                text-align: center;
+                padding: 8px;
+              "
+            >
+              Count
+            </th>
+          </tr>
+          <tr>
+            <td
+              style="
+                border: 1px solid #aaaaaa;
+                text-align: center;
+                padding: 8px;
+              "
+            >
+              Present
+            </td>
+            <td
+              style="
+                border: 1px solid #aaaaaa;
+                text-align: center;
+                padding: 8px;
+              "
+            >
+              ${present.length}
+            </td>
+          </tr>
+          <tr>
+            <td
+              style="
+                border: 1px solid #aaaaaa;
+                text-align: center;
+                padding: 8px;
+              "
+            >
+              Absent
+            </td>
+            <td
+              style="
+                border: 1px solid #aaaaaa;
+                text-align: center;
+                padding: 8px;
+              "
+            >
+              ${absent.length}
+            </td>
+          </tr>
+          <tr>
+            <td
+              style="
+                border: 1px solid #aaaaaa;
+                text-align: center;
+                padding: 8px;
+              "
+            >
+              Sick
+            </td>
+            <td
+              style="
+                border: 1px solid #aaaaaa;
+                text-align: center;
+                padding: 8px;
+              "
+            >
+              ${sick.length}
+            </td>
+          </tr>
+          <tr>
+            <td
+              style="
+                border: 1px solid #aaaaaa;
+                text-align: center;
+                padding: 8px;
+              "
+            >
+              Dayoff
+            </td>
+            <td
+              style="
+                border: 1px solid #aaaaaa;
+                text-align: center;
+                padding: 8px;
+              "
+            >
+              ${dayoff.length}
+            </td>
+          </tr>
+          <tr>
+            <td
+              style="
+                border: 1px solid #aaaaaa;
+                text-align: center;
+                padding: 8px;
+              "
+            >
+              Leave
+            </td>
+            <td
+              style="
+                border: 1px solid #aaaaaa;
+                text-align: center;
+                padding: 8px;
+              "
+            >
+              ${leave.length}
+            </td>
+          </tr>
+          <tr>
+            <td
+              style="
+                border: 1px solid #aaaaaa;
+                text-align: center;
+                padding: 8px;
+              "
+            >
+              PH
+            </td>
+            <td
+              style="
+                border: 1px solid #aaaaaa;
+                text-align: center;
+                padding: 8px;
+              "
+            >
+              ${ph.length}
+            </td>
+          </tr>
+          <tr>
+            <td
+              style="
+                border: 1px solid #aaaaaa;
+                text-align: center;
+                padding: 8px;
+              "
+            >
+              PO
+            </td>
+            <td
+              style="
+                border: 1px solid #aaaaaa;
+                text-align: center;
+                padding: 8px;
+              "
+            >
+              ${po.length}
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>`,
+  });
 });
 
 // Post project details
@@ -981,6 +1233,61 @@ app.get("/api/attendence-evening-projectwise", (req, res) => {
           return i.project;
         });
         res.send(status);
+      }
+    }
+  );
+});
+
+// PROJECTWISE ATTENDENCE DETAILS -TEST
+app.get("/api/attendence-all-projectwise", (req, res) => {
+  const current = new Date();
+  const today = `${current.getFullYear()}-${
+    current.getMonth() + 1
+  }-${current.getDate()}`;
+
+  db.query(
+    "SELECT * FROM morning_attendence WHERE DATE(time_stamp)= CURDATE() AND status='present' UNION ALL SELECT * FROM evening_attendence WHERE DATE(time_stamp)= CURDATE() AND status='present'",
+    // [today],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        let status = result.map(function (i) {
+          return i.project;
+        });
+        res.send(status);
+      }
+    }
+  );
+});
+
+// User profile information
+app.get("/api/user-profile/:id", async (req, res) => {
+  const id = req.params.id;
+  await db.query(
+    "SELECT * FROM staffs_information WHERE id = ?",
+    [id],
+
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send(result);
+      }
+    }
+  );
+});
+
+// User project details
+app.get("/api/user-projects", (req, res) => {
+  db.query(
+    "SELECT * FROM staffs_information WHERE id ='NH0065'",
+    // [today],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send(result);
       }
     }
   );

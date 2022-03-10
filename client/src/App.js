@@ -16,6 +16,7 @@ import ShiftChanger from "./pages/Staffs/shiftChanger/ShiftChanger";
 import ProjectDash from "./pages/projectdashboard/ProjectDash";
 import MorningAttendence from "./pages/Staffs/staffAttendance/MorningAttendence";
 import EveningAttendence from "./pages/Staffs/staffAttendance/EveningAttendence";
+import Profile from "./pages/profile/Profile";
 
 function App() {
   return (
@@ -73,6 +74,8 @@ function App() {
             path='/shift-changer'
             element={<Protected Comp={ShiftChanger} />}
           />
+
+          <Route path='/profile/:id' element={<Protected Comp={Profile} />} />
 
           {/* <Route path='/dashboard' element={<Protected Comp={Homepage} />} /> */}
         </Routes>

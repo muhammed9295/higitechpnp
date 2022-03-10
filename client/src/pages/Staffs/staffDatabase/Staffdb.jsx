@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import "./staffdb.css";
 import {
   Table,
@@ -156,7 +157,11 @@ function Staffdb() {
                             <TableCell component='th' scope='row'>
                               {staff.id}
                             </TableCell>
-                            <TableCell align='left'>{staff.name}</TableCell>
+                            <TableCell align='left'>
+                              <Link to={`/profile/${staff.id}`}>
+                                {staff.name}
+                              </Link>
+                            </TableCell>
                             <TableCell align='left'>
                               {staff.designation}
                             </TableCell>

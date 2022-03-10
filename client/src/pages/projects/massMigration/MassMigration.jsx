@@ -15,7 +15,6 @@ import {
   Select,
   MenuItem,
 } from "@mui/material";
-import Sidebar from "../../../components/sidebar/Sidebar";
 
 function MassMigration() {
   // dropdown useStates
@@ -64,7 +63,6 @@ function MassMigration() {
 
   return (
     <div className='container'>
-      <Sidebar />
       <div className='mass-container'>
         <div className='mass-wrapper'>
           <div className='mass-title'>

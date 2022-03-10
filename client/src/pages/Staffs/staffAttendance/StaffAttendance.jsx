@@ -17,12 +17,14 @@ import {
 } from "@mui/material";
 import Axios from "axios";
 import { Link } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function StaffAttendance() {
   // attendance entry
   const [staffList, setStaffList] = useState([]);
   const [search, setSearch] = useState("");
-  const [mor, setMorn] = useState([]);
+
   const [eve, setEve] = useState([]);
 
   const style = { marginTop: "20px" };
@@ -66,65 +68,8 @@ function StaffAttendance() {
   };
 
   useEffect(() => {
-    staffDetails();
-    getAttMorning();
-    getAttEvening();
-
-    // handleAddFields();
+    staffDetails(); // handleAddFields();
   }, []);
-
-  // Get morning attendence data
-  const getAttMorning = async () => {
-    try {
-      const d = await Axios.get(
-        "http://185.243.76.148:3001/api/morning-attendence"
-      );
-
-      setMorn(d.data);
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
-  // Get evening attendence data
-  const getAttEvening = async () => {
-    try {
-      const d = await Axios.get(
-        "http://185.243.76.148:3001/api/evening-attendence"
-      );
-
-      setEve(d.data);
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
-  let array = mor.concat(eve);
-
-  const sendEmail = () => {
-    Axios.post("http://185.243.76.148:3001/api/mail", array)
-      .then((response) => {
-        console.log(response.data);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  };
-
-  // Adding Staff attendence
-  const addAttendence = (e) => {
-    Axios.post("http://185.243.76.148:3001/api/attendance", staffList)
-      .then((response) => {
-        alert(response.data);
-        console.log(response.data);
-        if (response.data == "success") {
-          e.preventDefault();
-        }
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  };
 
   function handleChange(e, index) {
     let localList = [...staffList];
@@ -194,18 +139,17 @@ function StaffAttendance() {
                     Evening
                   </Button>
                 </Link>
-
-                <Button
-                  sx={{
-                    backgroundColor: "red",
-
-                    padding: "8px 20px",
-                  }}
-                  variant='contained'
-                  onClick={sendEmail}
-                >
-                  Send report
-                </Button>
+                <ToastContainer
+                  position='top-right'
+                  autoClose={3000}
+                  hideProgressBar={true}
+                  newestOnTop={false}
+                  closeOnClick
+                  rtl={false}
+                  pauseOnFocusLoss
+                  draggable
+                  pauseOnHover
+                />
               </div>
               <TableContainer component={Paper}>
                 <Table sx={{ minWidth: 650 }} aria-label='simple table'>
@@ -223,12 +167,7 @@ function StaffAttendance() {
                       <TableCell align='center'>
                         <strong>Project</strong>
                       </TableCell>
-                      <TableCell align='center'>
-                        <strong>Date</strong>
-                      </TableCell>
-                      <TableCell align='center'>
-                        <strong>Status</strong>
-                      </TableCell>
+
                       <TableCell align='center'>
                         <strong>Shift</strong>
                       </TableCell>
@@ -264,25 +203,7 @@ function StaffAttendance() {
                             <TableCell align='center'>
                               {staff.project}
                             </TableCell>
-                            <TableCell align='center'>{staff.date}</TableCell>
-                            <TableCell align='center'>
-                              <Select
-                                size='small'
-                                onChange={(e) => handleChange(e, i)}
-                                name='status'
-                                value={staff.status}
-                              >
-                                <MenuItem value={"present"} selected>
-                                  Present
-                                </MenuItem>
-                                <MenuItem value={"absent"}>Absent</MenuItem>
-                                <MenuItem value={"sick"}>Sick</MenuItem>
-                                <MenuItem value={"dayoff"}>Dayoff</MenuItem>
-                                <MenuItem value={"leave"}>Leave</MenuItem>
-                                <MenuItem value={"ph"}>PH</MenuItem>
-                                <MenuItem value={"po"}>PO</MenuItem>
-                              </Select>
-                            </TableCell>
+
                             <TableCell align='center'>{staff.shift}</TableCell>
                           </TableRow>
                         );

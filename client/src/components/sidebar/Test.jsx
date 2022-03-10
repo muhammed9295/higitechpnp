@@ -269,15 +269,17 @@ function Test() {
           <Divider /> */}
 
           {/* HR Section */}
-          {/* <List>
-            <ListItem>
-              <ListItemIcon>
-                <CoPresent />
-              </ListItemIcon>
-              <ListItemText>Screening</ListItemText>
-            </ListItem>
+          <List>
+            <Link to='/profile'>
+              <ListItem>
+                <ListItemIcon>
+                  <CoPresent />
+                </ListItemIcon>
+                <ListItemText>Screening</ListItemText>
+              </ListItem>
+            </Link>
 
-            <ListItem>
+            {/* <ListItem>
               <ListItemIcon>
                 <EventAvailable />
               </ListItemIcon>
@@ -296,9 +298,9 @@ function Test() {
                 <Leaderboard />
               </ListItemIcon>
               <ListItemText>Performances</ListItemText>
-            </ListItem>
+            </ListItem> */}
           </List>
-          <Divider /> */}
+          <Divider />
 
           {/* Finance Section */}
           {/* <List>
