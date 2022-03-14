@@ -489,7 +489,7 @@ app.post("/api/attendance-morning", (req, res, next) => {
   let attendanceData = null;
   if (items && items.length && items.length > 0) {
     attendanceData = items[0].date;
-    res.write("Already submitted");
+    // res.write("Already submitted");
   }
 
   if (attendanceData) {
@@ -517,7 +517,7 @@ app.post("/api/attendance-morning", (req, res, next) => {
               if (err) {
                 console.log(err);
               } else {
-                res.write("Success");
+                res.send("Success");
               }
             }
           );
@@ -525,7 +525,6 @@ app.post("/api/attendance-morning", (req, res, next) => {
       }
     );
   }
-  res.end();
 });
 
 // Post daily attendence - evening
@@ -535,7 +534,7 @@ app.post("/api/attendance-evening", (req, res) => {
   let attendanceData1 = null;
   if (items && items.length && items.length > 0) {
     attendanceData1 = items[0].date;
-    res.write("Already submitted");
+    // res.write("Already submitted");
   }
 
   if (attendanceData1) {
@@ -563,7 +562,7 @@ app.post("/api/attendance-evening", (req, res) => {
               if (err) {
                 console.log(err);
               } else {
-                res.write("Success");
+                res.send("Success");
               }
             }
           );
@@ -571,7 +570,6 @@ app.post("/api/attendance-evening", (req, res) => {
       }
     );
   }
-  res.end();
 });
 
 // Get daily attendence - Morning & Evening
@@ -674,8 +672,8 @@ app.post("/api/mail-morning", cors(), async (req, res) => {
 
   await transport.sendMail({
     from: process.env.MAIL_FROM,
-    to: "shahzad@higitech-me.com,farhan.nasir@higitech-me.com,operationsss@higitech-me.com,abdul.wahab@higitech-me.com,muhammed@higitech.me",
-    // to: "muhammed@higitech.me",
+    // to: "shahzad@higitech-me.com,farhan.nasir@higitech-me.com,operationsss@higitech-me.com,abdul.wahab@higitech-me.com,muhammed@higitech.me",
+    to: "muhammed@higitech.me,abdul.wahab@higitech-me.com",
     subject: "Attendence Summary",
     html: `<div style="display: flex; align-items: center; justify-content: center">
     <div
@@ -923,8 +921,8 @@ app.post("/api/mail-evening", cors(), async (req, res) => {
 
   await transport.sendMail({
     from: process.env.MAIL_FROM,
-    to: "shahzad@higitech-me.com,farhan.nasir@higitech-me.com,operationsss@higitech-me.com,abdul.wahab@higitech-me.com,muhammed@higitech.me",
-    // to: "muhammed@higitech.me",
+    // to: "shahzad@higitech-me.com,farhan.nasir@higitech-me.com,operationsss@higitech-me.com,abdul.wahab@higitech-me.com,muhammed@higitech.me",
+    to: "muhammed@higitech.me,abdul.wahab@higitech-me.com",
     subject: "Attendence Summary",
     html: `<div style="display: flex; align-items: center; justify-content: center">
     <div

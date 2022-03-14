@@ -35,8 +35,6 @@ function Profile() {
     }
   });
 
-  console.log(pic.length);
-
   return (
     <div>
       <Box
@@ -64,7 +62,7 @@ function Profile() {
                 <div className='row py-4'>
                   <div className='col-lg-6 d-flex flex-column align-items-center'>
                     <img
-                      src={pic === "" ? "../images/user.png" : ""}
+                      src='../images/user.png'
                       alt=''
                       className='profile-pic'
                     />
