@@ -77,7 +77,7 @@ function EveningAttendence() {
 
   // Adding Staff attendence evening
   const addAttendenceEvening = (e) => {
-    Axios.post("http://185.243.76.148:3001/api/attendance-evening", staffList)
+    Axios.post("http://localhost:3001/api/attendance-evening", staffList)
       .then((response) => {
         if (response.data == "Success") {
           setStatus(true);
@@ -142,7 +142,7 @@ function EveningAttendence() {
                   disabled={status}
                   onClick={() => {
                     addAttendenceEvening();
-                    testemail();
+                    // testemail();
                   }}
                 >
                   Submit
@@ -170,6 +170,9 @@ function EveningAttendence() {
                         <strong>Name</strong>
                       </TableCell>
                       <TableCell align='center'>
+                        <strong>Status</strong>
+                      </TableCell>
+                      <TableCell align='center'>
                         <strong>Designation</strong>
                       </TableCell>
                       <TableCell align='center'>
@@ -177,9 +180,6 @@ function EveningAttendence() {
                       </TableCell>
                       <TableCell align='center'>
                         <strong>Date</strong>
-                      </TableCell>
-                      <TableCell align='center'>
-                        <strong>Status</strong>
                       </TableCell>
                       <TableCell align='center'>
                         <strong>Shift</strong>
@@ -211,13 +211,6 @@ function EveningAttendence() {
                             <TableCell align='center'>{staff.id}</TableCell>
                             <TableCell align='center'>{staff.name}</TableCell>
                             <TableCell align='center'>
-                              {staff.designation}
-                            </TableCell>
-                            <TableCell align='center'>
-                              {staff.project}
-                            </TableCell>
-                            <TableCell align='center'>{staff.date}</TableCell>
-                            <TableCell align='center'>
                               <Select
                                 size='small'
                                 onChange={(e) => handleChange(e, i)}
@@ -235,6 +228,13 @@ function EveningAttendence() {
                                 <MenuItem value={"po"}>PO</MenuItem>
                               </Select>
                             </TableCell>
+                            <TableCell align='center'>
+                              {staff.designation}
+                            </TableCell>
+                            <TableCell align='center'>
+                              {staff.project}
+                            </TableCell>
+                            <TableCell align='center'>{staff.date}</TableCell>
                             <TableCell align='center'>{staff.shift}</TableCell>
                           </TableRow>
                         );

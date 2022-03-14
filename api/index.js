@@ -673,7 +673,7 @@ app.post("/api/mail-morning", cors(), async (req, res) => {
   await transport.sendMail({
     from: process.env.MAIL_FROM,
     // to: "shahzad@higitech-me.com,farhan.nasir@higitech-me.com,operationsss@higitech-me.com,abdul.wahab@higitech-me.com,muhammed@higitech.me",
-    to: "muhammed@higitech.me,abdul.wahab@higitech-me.com",
+    to: "muhammed@higitech.me",
     subject: "Attendence Summary",
     html: `<div style="display: flex; align-items: center; justify-content: center">
     <div
