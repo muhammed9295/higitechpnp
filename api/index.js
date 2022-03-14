@@ -494,7 +494,7 @@ app.post("/api/attendance-morning", (req, res, next) => {
 
   if (attendanceData) {
     db.query(
-      "SELECT id FROM higitech_pnp.morning_attendence WHERE date=?",
+      "SELECT id FROM higitech_hybrid2.morning_attendence WHERE date=?",
       [attendanceData],
       (err, result) => {
         if (result && result.length == 0) {
@@ -539,7 +539,7 @@ app.post("/api/attendance-evening", (req, res) => {
 
   if (attendanceData1) {
     db.query(
-      "SELECT id FROM higitech_pnp.evening_attendence WHERE date=?",
+      "SELECT id FROM higitech_hybrid2.evening_attendence WHERE date=?",
       [attendanceData1],
       (err, result) => {
         if (result && result.length == 0) {
@@ -673,7 +673,7 @@ app.post("/api/mail-morning", cors(), async (req, res) => {
   await transport.sendMail({
     from: process.env.MAIL_FROM,
     // to: "shahzad@higitech-me.com,farhan.nasir@higitech-me.com,operationsss@higitech-me.com,abdul.wahab@higitech-me.com,muhammed@higitech.me",
-    to: "muhammed@higitech.me",
+    to: "muhammed@higitech.me, abdul.wahab@higitech-me.com",
     subject: "Attendence Summary",
     html: `<div style="display: flex; align-items: center; justify-content: center">
     <div

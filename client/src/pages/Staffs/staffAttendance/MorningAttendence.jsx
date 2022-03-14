@@ -80,7 +80,7 @@ function MorningAttendence() {
 
   // Adding Staff attendence morning
   const addAttendenceMorning = () => {
-    Axios.post("http://localhost:3001/api/attendance-morning", staffList)
+    Axios.post("http://185.243.76.148:3001/api/attendance-morning", staffList)
       .then((response) => {
         if (response.data == "Success") {
           setStatus(true);
@@ -96,7 +96,7 @@ function MorningAttendence() {
 
   // Send email
   const testemail = () => {
-    Axios.post("http://localhost:3001/api/mail-morning", staffList)
+    Axios.post("http://185.243.76.148:3001/api/mail-morning", staffList)
       .then((response) => {
         console.log(response);
         alert("Attendence Summary Sent");

@@ -77,7 +77,7 @@ function EveningAttendence() {
 
   // Adding Staff attendence evening
   const addAttendenceEvening = (e) => {
-    Axios.post("http://localhost:3001/api/attendance-evening", staffList)
+    Axios.post("http://185.243.76.148:3001/api/attendance-evening", staffList)
       .then((response) => {
         if (response.data == "Success") {
           setStatus(true);
@@ -142,7 +142,7 @@ function EveningAttendence() {
                   disabled={status}
                   onClick={() => {
                     addAttendenceEvening();
-                    // testemail();
+                    testemail();
                   }}
                 >
                   Submit
